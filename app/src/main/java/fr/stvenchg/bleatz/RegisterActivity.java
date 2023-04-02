@@ -1,6 +1,9 @@
 package fr.stvenchg.bleatz;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +47,16 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterSendButton = findViewById(R.id.register_button_register);
         mLaterTextView = findViewById(R.id.register_textview_later);
 
+        // Vérification des champs du formulaire
+        mFirstnameEditText.addTextChangedListener(textWatcher);
+        mLastnameEditText.addTextChangedListener(textWatcher);
+        mEmailEditText.addTextChangedListener(textWatcher);
+        mPasswordEditText.addTextChangedListener(textWatcher);
+        mConfirmPasswordEditText.addTextChangedListener(textWatcher);
+
+        // Désactiver le bouton s'inscrire
+        mRegisterSendButton.setEnabled(false);
+
         mRegisterSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +64,41 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+
+        // Vérifier la présence de "@" et "."
+        return email.contains("@") && email.contains(".");
+    }
+    private boolean fieldsCheck() {
+        String email = mEmailEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        return !TextUtils.isEmpty(mFirstnameEditText.getText().toString()) &&
+                !TextUtils.isEmpty(mLastnameEditText.getText().toString()) &&
+                isValidEmail(email) &&
+                !TextUtils.isEmpty(password) &&
+                password.length() > 6 &&
+                !TextUtils.isEmpty(mConfirmPasswordEditText.getText().toString()) &&
+                password.equals(mConfirmPasswordEditText.getText().toString());
+    }
+
+    private final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            mRegisterSendButton.setEnabled(fieldsCheck());
+        }
+    };
 
     private void registerUser() {
         String firstname = mFirstnameEditText.getText().toString().trim();
