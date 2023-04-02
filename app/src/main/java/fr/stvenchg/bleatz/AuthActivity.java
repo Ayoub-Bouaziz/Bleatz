@@ -15,6 +15,7 @@ import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
 import fr.stvenchg.bleatz.api.refreshToken.RefreshTokenRequest;
 import fr.stvenchg.bleatz.api.refreshToken.RefreshTokenResponse;
+import fr.stvenchg.bleatz.tasks.RefreshTokenTask;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,17 +31,7 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        AuthenticationManager authenticationManager = new AuthenticationManager(this);
-
-        // Vérifier si des tokens sont déjà enregistrés et qu'ils sont valides
-        String email = authenticationManager.getEmail();
-        String refreshToken = authenticationManager.getRefreshToken();
-        System.out.println(email);
-        System.out.println(refreshToken);
-
-        if (refreshToken != null && email != null) {
-            refreshAccessToken(email, refreshToken);
-        }
+        refreshTokenAndRedirect();
 
         mLoginButton = findViewById(R.id.auth_button_login);
         mRegisterButton = findViewById(R.id.auth_button_register);
@@ -67,40 +58,15 @@ public class AuthActivity extends AppCompatActivity {
         });
     }
 
-    private void refreshAccessToken(String email, String refreshToken) {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<RefreshTokenResponse> call = apiInterface.refreshUserToken(new RefreshTokenRequest(email, refreshToken));
+    private void refreshTokenAndRedirect() {
+        AuthenticationManager authenticationManager = new AuthenticationManager(this);
+        String email = authenticationManager.getEmail();
+        String refreshToken = authenticationManager.getRefreshToken();
 
-        call.enqueue(new Callback<RefreshTokenResponse>() {
-            @Override
-            public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-                if (response.isSuccessful()) {
-                    RefreshTokenResponse refreshTokenResponse = response.body();
-                    if (refreshTokenResponse != null && refreshTokenResponse.isSuccess()) {
-                        AuthenticationManager authenticationManager = new AuthenticationManager(AuthActivity.this);
-                        authenticationManager.saveTokens(authenticationManager.getEmail(), refreshTokenResponse.getToken(), authenticationManager.getRefreshToken());
-
-                        System.out.println(authenticationManager.getEmail());
-                        System.out.println(authenticationManager.getAccessToken());
-                        System.out.println(authenticationManager.getRefreshToken());
-
-                        Intent intent = new Intent(AuthActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish(); // Terminez AuthActivity pour éviter de revenir en arrière avec le bouton Retour
-                    }
-                }
-                else {
-                    AuthenticationManager authenticationManager = new AuthenticationManager(AuthActivity.this);
-                    authenticationManager.clearTokens();
-
-                    Toast.makeText(AuthActivity.this, "La session a expirée.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
-                Log.e("AuthActivity", "refreshAccessToken onFailure: " + t.getMessage());
-            }
-        });
+        if (email != null && refreshToken != null) {
+            // Exécutez l'AsyncTask pour rafraîchir le token et rediriger l'utilisateur
+            RefreshTokenTask refreshTokenTask = new RefreshTokenTask(this, email, refreshToken, authenticationManager);
+            refreshTokenTask.execute();
+        }
     }
 }
