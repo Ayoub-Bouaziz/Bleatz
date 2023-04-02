@@ -34,7 +34,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login"
+            android:id="@+id/login_edittext_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="-4dp"
@@ -60,6 +60,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_edittext_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="-4dp"
@@ -92,7 +93,7 @@
             android:layout_height="@dimen/spacing_large" />
 
         <Button
-            android:id="@+id/login_button_send"
+            android:id="@+id/login_button_login"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="-4dp"

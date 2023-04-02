@@ -10,25 +10,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private Button loginButton;
-    private Button registerButton;
-    private TextView laterButton;
+    private Button mLoginButton;
+    private Button mRegisterButton;
+    private TextView mLaterTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        loginButton = findViewById(R.id.auth_button_login);
-        registerButton = findViewById(R.id.auth_button_register);
-        laterButton = findViewById(R.id.auth_textview_later);
+        mLoginButton = findViewById(R.id.auth_button_login);
+        mRegisterButton = findViewById(R.id.auth_button_register);
+        mLaterTextView = findViewById(R.id.auth_textview_later);
 
         // Démarrage de l'activité permettant à l'utilisateur de se connecter
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AuthActivity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
