@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import fr.stvenchg.bleatz.api.AuthenticationManager;
+
 public class AuthActivity extends AppCompatActivity {
 
     private Button mLoginButton;
@@ -18,6 +20,19 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+
+        AuthenticationManager authenticationManager = new AuthenticationManager(this);
+
+        // Vérifier si des tokens sont déjà enregistrés et qu'ils sont valides
+        String accessToken = authenticationManager.getAccessToken();
+        String refreshToken = authenticationManager.getRefreshToken();
+
+        if (accessToken != null && refreshToken != null) {
+            // Si les tokens existent, démarrez MainActivity
+            Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Terminez AuthActivity pour éviter de revenir en arrière avec le bouton Retour
+        }
 
         mLoginButton = findViewById(R.id.auth_button_login);
         mRegisterButton = findViewById(R.id.auth_button_register);

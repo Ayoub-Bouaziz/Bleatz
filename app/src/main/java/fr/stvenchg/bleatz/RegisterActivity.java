@@ -19,8 +19,11 @@ import java.io.IOException;
 
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
-import fr.stvenchg.bleatz.api.RegistrationRequest;
-import fr.stvenchg.bleatz.api.RegistrationResponse;
+import fr.stvenchg.bleatz.api.AuthenticationManager;
+import fr.stvenchg.bleatz.api.login.LoginRequest;
+import fr.stvenchg.bleatz.api.login.LoginResponse;
+import fr.stvenchg.bleatz.api.register.RegistrationRequest;
+import fr.stvenchg.bleatz.api.register.RegistrationResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,7 +121,8 @@ public class RegisterActivity extends AppCompatActivity {
                         if (registrationResponse.isSuccess()) {
                             Toast.makeText(RegisterActivity.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
-                            // Redirection vers l'activité de validation de l'email
+                            // Identification de l'utilisateur
+                            loginUser(email, password);
                         } else {
                             Toast.makeText(RegisterActivity.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -138,8 +142,37 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Erreur réseau : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("RegisterActivity", "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void loginUser(String email, String password) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<LoginResponse> call = apiInterface.loginUser(new LoginRequest(email, password));
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    LoginResponse loginResponse = response.body();
+                    if (loginResponse != null && loginResponse.isSuccess()) {
+                        AuthenticationManager authenticationManager = new AuthenticationManager(RegisterActivity.this);
+                        authenticationManager.saveTokens(loginResponse.getToken(), loginResponse.getRefreshToken());
+                        System.out.println(loginResponse.getToken());
+                        System.out.println(loginResponse.getRefreshToken());
+                    } else {
+                        Toast.makeText(RegisterActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Une erreur est survenue.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("RegisterActivity", "loginUser onFailure: " + t.getMessage());
             }
         });
     }

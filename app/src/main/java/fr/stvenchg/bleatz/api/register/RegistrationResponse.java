@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz.api;
+package fr.stvenchg.bleatz.api.register;
 
 public class RegistrationResponse {
     private boolean success;
