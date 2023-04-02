@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordEditText.addTextChangedListener(textWatcher);
         mConfirmPasswordEditText.addTextChangedListener(textWatcher);
 
-        // Désactiver le bouton s'inscrire
+        // Désactiver le bouton d'inscription
         mRegisterSendButton.setEnabled(false);
 
         mRegisterSendButton.setOnClickListener(new View.OnClickListener() {

@@ -88,12 +88,12 @@ public class AuthActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish(); // Terminez AuthActivity pour éviter de revenir en arrière avec le bouton Retour
                     }
-                    else {
-                        AuthenticationManager authenticationManager = new AuthenticationManager(AuthActivity.this);
-                        authenticationManager.clearTokens();
+                }
+                else {
+                    AuthenticationManager authenticationManager = new AuthenticationManager(AuthActivity.this);
+                    authenticationManager.clearTokens();
 
-                        Toast.makeText(AuthActivity.this, refreshTokenResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(AuthActivity.this, "La session a expirée.", Toast.LENGTH_SHORT).show();
                 }
             }
 
