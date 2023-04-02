@@ -1,6 +1,8 @@
 package fr.stvenchg.bleatz;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,5 +30,14 @@ public class LoginActivity extends AppCompatActivity {
         mLoginSendButton = findViewById(R.id.login_button_login);
         mRegisterTextView = findViewById(R.id.login_textview_register);
         mLaterTextView = findViewById(R.id.login_textview_later);
+
+        mRegisterTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
     }
 }

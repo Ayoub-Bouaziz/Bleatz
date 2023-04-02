@@ -23,11 +23,21 @@ public class AuthActivity extends AppCompatActivity {
         mRegisterButton = findViewById(R.id.auth_button_register);
         mLaterTextView = findViewById(R.id.auth_textview_later);
 
-        // Démarrage de l'activité permettant à l'utilisateur de se connecter
+        // Démarrage de l'activité de connexion
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AuthActivity.this, LoginActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        // Démarrage de l'activité d'inscription
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AuthActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
