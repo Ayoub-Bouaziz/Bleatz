@@ -8,14 +8,17 @@ public class AuthenticationManager {
     private static final String ACCESS_TOKEN_KEY = "token";
     private static final String REFRESH_TOKEN_KEY = "refresh_token";
 
+    private static final String EMAIL = "email";
+
     private SharedPreferences sharedPreferences;
 
     public AuthenticationManager(Context context) {
         sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveTokens(String accessToken, String refreshToken) {
+    public void saveTokens(String email, String accessToken, String refreshToken) {
         sharedPreferences.edit()
+                .putString(EMAIL, email)
                 .putString(ACCESS_TOKEN_KEY, accessToken)
                 .putString(REFRESH_TOKEN_KEY, refreshToken)
                 .apply();
@@ -29,10 +32,15 @@ public class AuthenticationManager {
         return sharedPreferences.getString(REFRESH_TOKEN_KEY, null);
     }
 
+    public String getEmail() {
+        return sharedPreferences.getString(EMAIL, null);
+    }
+
     public void clearTokens() {
         sharedPreferences.edit()
                 .remove(ACCESS_TOKEN_KEY)
                 .remove(REFRESH_TOKEN_KEY)
+                .remove(EMAIL)
                 .apply();
     }
 }

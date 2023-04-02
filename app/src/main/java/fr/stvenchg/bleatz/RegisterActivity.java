@@ -158,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null && loginResponse.isSuccess()) {
                         AuthenticationManager authenticationManager = new AuthenticationManager(RegisterActivity.this);
-                        authenticationManager.saveTokens(loginResponse.getToken(), loginResponse.getRefreshToken());
+                        authenticationManager.saveTokens(email, loginResponse.getToken(), loginResponse.getRefreshToken());
                         System.out.println(loginResponse.getToken());
                         System.out.println(loginResponse.getRefreshToken());
                     } else {
