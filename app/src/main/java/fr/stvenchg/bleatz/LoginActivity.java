@@ -5,13 +5,28 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import fr.stvenchg.bleatz.api.ApiClient;
+import fr.stvenchg.bleatz.api.ApiInterface;
+import fr.stvenchg.bleatz.api.AuthenticationManager;
+import fr.stvenchg.bleatz.api.login.LoginRequest;
+import fr.stvenchg.bleatz.api.login.LoginResponse;
+import fr.stvenchg.bleatz.api.register.RegistrationResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,6 +64,13 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+
+        mLoginSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser();
+            }
+        });
     }
 
     private boolean isValidEmail(String email) {
@@ -83,4 +105,44 @@ public class LoginActivity extends AppCompatActivity {
             mLoginSendButton.setEnabled(fieldsCheck());
         }
     };
+
+    private void loginUser() {
+        String email = mEmailEditText.getText().toString().trim();
+        String password = mPasswordEditText.getText().toString().trim();
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<LoginResponse> call = apiInterface.loginUser(new LoginRequest(email, password));
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    LoginResponse loginResponse = response.body();
+                    if (loginResponse != null && loginResponse.isSuccess()) {
+                        AuthenticationManager authenticationManager = new AuthenticationManager(LoginActivity.this);
+                        authenticationManager.saveTokens(email, loginResponse.getToken(), loginResponse.getRefreshToken());
+                        System.out.println(loginResponse.getToken());
+                        System.out.println(loginResponse.getRefreshToken());
+
+                        Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    try {
+                        LoginResponse errorResponse = new Gson().fromJson(response.errorBody().string(), LoginResponse.class);
+                        Toast.makeText(LoginActivity.this, errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(LoginActivity.this, "Une erreur est survenue.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("LoginActivity", "loginUser onFailure: " + t.getMessage());
+            }
+        });
+    }
 }
