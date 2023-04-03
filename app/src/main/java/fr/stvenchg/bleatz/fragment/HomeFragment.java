@@ -27,7 +27,6 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment {
     private TextView bonjourTextView;
-
     private String firstname;
 
     public HomeFragment() {
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         bonjourTextView = view.findViewById(R.id.fhome_textview_bonjour);
-        bonjourTextView.setText("Bonjour " + firstname + ",");
+        bonjourTextView.setText("Salut " + firstname + ",");
     }
 
 }

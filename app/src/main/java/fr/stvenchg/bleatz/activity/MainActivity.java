@@ -34,14 +34,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment(), R.id.nav_item_home);
 
-        binding.navItemHome.setOnClickListener(v -> replaceFragment(new HomeFragment(), R.id.nav_item_home));
+        authenticationManager = new AuthenticationManager(this);
+        fetchUserDetails();
+
+        binding.navItemHome.setOnClickListener(v -> {
+            String firstname = authenticationManager.getFirstname();
+            if (firstname != null) {
+                replaceFragment(HomeFragment.newInstance(firstname), R.id.nav_item_home);
+            } else {
+                replaceFragment(new HomeFragment(), R.id.nav_item_home);
+            }
+        });
+
         binding.navItemBurgermenu.setOnClickListener(v -> replaceFragment(new BurgerMenuFragment(), R.id.nav_item_burgermenu));
         binding.navItemLocation.setOnClickListener(v -> replaceFragment(new RestaurantLocationFragment(), R.id.nav_item_location));
         binding.navItemAccount.setOnClickListener(v -> replaceFragment(new AccountFragment(), R.id.nav_item_account));
 
-        authenticationManager = new AuthenticationManager(this);
 
         // Vérification de l'email et du numéro de téléphone
         if (authenticationManager.getEmail() != null && authenticationManager.getAccessToken() != null && authenticationManager.getRefreshToken() != null)  {
@@ -59,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-        fetchUserDetails();
-
     }
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {
@@ -116,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     AccountResponse accountResponse = response.body();
                     if (accountResponse != null && accountResponse.isSuccess()) {
-                        if (!accountResponse.isPhoneVerified() && accountResponse.getPhone() == null) {
+                        if (!accountResponse.isPhoneVerified() || accountResponse.getPhone() == null) {
                             redirectToAddPhoneActivity();
                         }
                     }
@@ -163,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
                                     accountResponse.getPhone(),
                                     accountResponse.getCreationDate()
                                     );
+
+                            String firstname = accountResponse.getFirstname();
+                            HomeFragment homeFragment = HomeFragment.newInstance(firstname);
+                            replaceFragment(homeFragment, R.id.nav_item_home);
 
                             System.out.println(accountResponse.getUserId());
                             System.out.println(accountResponse.getFirstname());
