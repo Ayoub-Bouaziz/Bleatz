@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        fetchUserDetails();
+
     }
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {
@@ -138,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
         finishAffinity();
     }
-
     private void fetchUserDetails() {
         AuthenticationManager authenticationManager = new AuthenticationManager(this);
         String accessToken = authenticationManager.getAccessToken();
@@ -153,7 +155,18 @@ public class MainActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         AccountResponse accountResponse = response.body();
                         if (accountResponse != null && accountResponse.isSuccess()) {
-                            String firstname = accountResponse.getFirstname();
+                            authenticationManager.saveUserDetails(
+                                    accountResponse.getUserId(),
+                                    accountResponse.getFirstname(),
+                                    accountResponse.getLastname(),
+                                    accountResponse.getEmail(),
+                                    accountResponse.getPhone(),
+                                    accountResponse.getCreationDate()
+                                    );
+
+                            System.out.println(accountResponse.getUserId());
+                            System.out.println(accountResponse.getFirstname());
+                            System.out.println(accountResponse.getLastname());
                         }
                     }
                 }

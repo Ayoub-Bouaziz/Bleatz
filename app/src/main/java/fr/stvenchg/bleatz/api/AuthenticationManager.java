@@ -8,7 +8,16 @@ public class AuthenticationManager {
     private static final String ACCESS_TOKEN_KEY = "token";
     private static final String REFRESH_TOKEN_KEY = "refresh_token";
 
+    private static final String USER_ID = "idUser";
+
+    private static final String FIRSTNAME = "firstname";
+
+    private static final String LASTNAME = "lastname";
     private static final String EMAIL = "email";
+
+    private static final String PHONE = "phone";
+
+    private static final String CREATION_DATE = "creation_date";
 
     private SharedPreferences sharedPreferences;
 
@@ -24,6 +33,17 @@ public class AuthenticationManager {
                 .apply();
     }
 
+    public void saveUserDetails(String idUser, String firstname, String lastname, String email, String phone, String creation_date) {
+        sharedPreferences.edit()
+                .putString(USER_ID, idUser)
+                .putString(FIRSTNAME, firstname)
+                .putString(LASTNAME, lastname)
+                .putString(EMAIL, email)
+                .putString(PHONE, phone)
+                .putString(CREATION_DATE, creation_date)
+                .apply();
+    }
+
     public String getAccessToken() {
         return sharedPreferences.getString(ACCESS_TOKEN_KEY, null);
     }
@@ -36,11 +56,35 @@ public class AuthenticationManager {
         return sharedPreferences.getString(EMAIL, null);
     }
 
+    public String getUserId() {
+        return sharedPreferences.getString(USER_ID, null);
+    }
+
+    public String getFirstname() {
+        return sharedPreferences.getString(FIRSTNAME, null);
+    }
+    public String getLastname() {
+        return sharedPreferences.getString(LASTNAME, null);
+    }
+
+    public String getPhone() {
+        return sharedPreferences.getString(PHONE, null);
+    }
+
+    public String getCreationDate() {
+        return sharedPreferences.getString(CREATION_DATE, null);
+    }
+
     public void clearTokens() {
         sharedPreferences.edit()
                 .remove(ACCESS_TOKEN_KEY)
                 .remove(REFRESH_TOKEN_KEY)
                 .remove(EMAIL)
+                .remove(USER_ID)
+                .remove(FIRSTNAME)
+                .remove(LASTNAME)
+                .remove(PHONE)
+                .remove(CREATION_DATE)
                 .apply();
     }
 }
