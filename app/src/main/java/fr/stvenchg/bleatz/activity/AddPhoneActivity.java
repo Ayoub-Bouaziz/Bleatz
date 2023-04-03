@@ -26,7 +26,6 @@ public class AddPhoneActivity extends AppCompatActivity {
 
     private AuthenticationManager authenticationManager;
     private TextInputEditText phoneEditText;
-
     private Button sendCodeButton;
 
     @Override
@@ -95,9 +94,10 @@ public class AddPhoneActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     PhoneSendResponse phoneSendResponse = response.body();
                     if (phoneSendResponse.isSuccess()) {
-                        Intent intent = new Intent(AddPhoneActivity.this, MainActivity.class);
+                        Intent intent = new Intent(AddPhoneActivity.this, VerifyPhoneActivity.class);
                         intent.putExtra("phone_number", phoneNumber);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         finish();
                     } else {
                         Toast.makeText(AddPhoneActivity.this, phoneSendResponse.getMessage(), Toast.LENGTH_SHORT).show();

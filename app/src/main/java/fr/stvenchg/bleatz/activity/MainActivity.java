@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
+import fr.stvenchg.bleatz.EmailVerificationCallback;
 import fr.stvenchg.bleatz.fragment.AccountFragment;
 import fr.stvenchg.bleatz.fragment.BurgerMenuFragment;
 import fr.stvenchg.bleatz.fragment.HomeFragment;
@@ -42,13 +43,15 @@ public class MainActivity extends AppCompatActivity {
         authenticationManager = new AuthenticationManager(this);
 
         if (authenticationManager.getEmail() != null && authenticationManager.getAccessToken() != null && authenticationManager.getRefreshToken() != null)  {
-            checkEmailVerified();
+            checkEmailVerified(new EmailVerificationCallback() {
+                @Override
+                public void onEmailVerificationDone(boolean isEmailVerified) {
+                    if (isEmailVerified) {
+                        checkPhoneVerified();
+                    }
+                }
+            });
         }
-
-        Intent intent = new Intent(MainActivity.this, AddPhoneActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-        finish();
     }
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {
@@ -59,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_framelayout, fragment);
         fragmentTransaction.commit();
     }
-
     private void updateSelectedIcon(int selectedIconId) {
         int selectedColor = getResources().getColor(R.color.orange_300);
         int defaultColor = getResources().getColor(R.color.grey_700);
@@ -69,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         binding.navItemLocation.setColorFilter(selectedIconId == R.id.nav_item_location ? selectedColor : defaultColor);
         binding.navItemAccount.setColorFilter(selectedIconId == R.id.nav_item_account ? selectedColor : defaultColor);
     }
-
-    private void checkEmailVerified() {
+    private void checkEmailVerified(EmailVerificationCallback callback) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<AccountResponse> call = apiInterface.getAccount("Bearer " + authenticationManager.getAccessToken());
 
@@ -82,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                     if (accountResponse != null && accountResponse.isSuccess()) {
                         if (!accountResponse.isEmailVerified()) {
                             redirectToAskEmailConfirmActivity();
+                            callback.onEmailVerificationDone(false);
+                        } else {
+                            callback.onEmailVerificationDone(true);
                         }
                     }
                 }
@@ -93,12 +97,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void checkPhoneVerified() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<AccountResponse> call = apiInterface.getAccount("Bearer " + authenticationManager.getAccessToken());
+        call.enqueue(new Callback<AccountResponse>() {
+            @Override
+            public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+                if (response.isSuccessful()) {
+                    AccountResponse accountResponse = response.body();
+                    if (accountResponse != null && accountResponse.isSuccess()) {
+                        if (!accountResponse.isPhoneVerified() && accountResponse.getPhone() == null) {
+                            redirectToAddPhoneActivity();
+                        }
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<AccountResponse> call, Throwable t) {
+                // Gérer l'échec de la requête
+            }
+        });
+    }
     private void redirectToAskEmailConfirmActivity() {
         Intent intent = new Intent(MainActivity.this, AskEmailConfirmActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-        finish();
+        finishAffinity();
+    }
+    private void redirectToAddPhoneActivity() {
+        Intent intent = new Intent(MainActivity.this, AddPhoneActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+        finishAffinity();
     }
 }
 
