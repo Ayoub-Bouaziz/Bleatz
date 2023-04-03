@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void redirectToAskEmailConfirmActivity() {
         Intent intent = new Intent(MainActivity.this, AskEmailConfirmActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
         finish();
     }
 }
