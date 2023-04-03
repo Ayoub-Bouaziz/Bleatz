@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         authenticationManager = new AuthenticationManager(this);
 
+        // Vérification de l'email et du numéro de téléphone
         if (authenticationManager.getEmail() != null && authenticationManager.getAccessToken() != null && authenticationManager.getRefreshToken() != null)  {
             checkEmailVerified(new EmailVerificationCallback() {
                 @Override
@@ -136,6 +137,33 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
         finishAffinity();
+    }
+
+    private void fetchUserDetails() {
+        AuthenticationManager authenticationManager = new AuthenticationManager(this);
+        String accessToken = authenticationManager.getAccessToken();
+
+        if (accessToken != null) {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<AccountResponse> call = apiInterface.getAccount("Bearer " + accessToken);
+
+            call.enqueue(new Callback<AccountResponse>() {
+                @Override
+                public void onResponse(Call<AccountResponse> call, Response<AccountResponse> response) {
+                    if (response.isSuccessful()) {
+                        AccountResponse accountResponse = response.body();
+                        if (accountResponse != null && accountResponse.isSuccess()) {
+                            String firstname = accountResponse.getFirstname();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<AccountResponse> call, Throwable t) {
+                    // Gérer l'échec de la requête
+                }
+            });
+        }
     }
 }
 

@@ -15,9 +15,10 @@
         android:paddingTop="@dimen/spacing_medium">
 
         <TextView
+            android:id="@+id/fhome_textview_bonjour"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Bienvenue chez Bleatz,"
+            android:text="Bonjour invité,"
             android:textSize="24dp"
             android:textColor="@color/grey_1000"
             android:textStyle="bold"/>
