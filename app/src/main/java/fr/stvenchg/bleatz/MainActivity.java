@@ -29,38 +29,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment(), R.id.nav_item_home);
 
-        binding.navigation.setOnItemSelectedListener(item -> {
-
-            switch (item.getItemId()) {
-                case R.id.nav_item_home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.nav_item_burgermenu:
-                    replaceFragment(new BurgerMenuFragment());
-                    break;
-                case R.id.nav_item_location:
-                    replaceFragment(new RestaurantLocationFragment());
-                    break;
-                case R.id.nav_item_account:
-                    replaceFragment(new AccountFragment());
-                    break;
-            }
-
-            return true;
-        });
+        binding.navItemHome.setOnClickListener(v -> replaceFragment(new HomeFragment(), R.id.nav_item_home));
+        binding.navItemBurgermenu.setOnClickListener(v -> replaceFragment(new BurgerMenuFragment(), R.id.nav_item_burgermenu));
+        binding.navItemLocation.setOnClickListener(v -> replaceFragment(new RestaurantLocationFragment(), R.id.nav_item_location));
+        binding.navItemAccount.setOnClickListener(v -> replaceFragment(new AccountFragment(), R.id.nav_item_account));
 
         authenticationManager = new AuthenticationManager(this);
         checkEmailVerified();
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, int selectedIconId) {
+        updateSelectedIcon(selectedIconId);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_framelayout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void updateSelectedIcon(int selectedIconId) {
+        int selectedColor = getResources().getColor(R.color.orange_300);
+        int defaultColor = getResources().getColor(R.color.grey_700);
+
+        binding.navItemHome.setColorFilter(selectedIconId == R.id.nav_item_home ? selectedColor : defaultColor);
+        binding.navItemBurgermenu.setColorFilter(selectedIconId == R.id.nav_item_burgermenu ? selectedColor : defaultColor);
+        binding.navItemLocation.setColorFilter(selectedIconId == R.id.nav_item_location ? selectedColor : defaultColor);
+        binding.navItemAccount.setColorFilter(selectedIconId == R.id.nav_item_account ? selectedColor : defaultColor);
     }
 
     private void checkEmailVerified() {
