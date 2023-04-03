@@ -21,6 +21,7 @@ import java.io.IOException;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
+import fr.stvenchg.bleatz.api.login.LoginCallback;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 import fr.stvenchg.bleatz.api.register.RegistrationRequest;
@@ -123,11 +124,20 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                             // Identification de l'utilisateur
-                            loginUser(email, password);
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                            finish();
+                            loginUser(email, password, new LoginCallback() {
+                                @Override
+                                public void onLoginSuccess() {
+                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onLoginFailure(String message) {
+                                    Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             Toast.makeText(RegisterActivity.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -153,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String email, String password) {
+    private void loginUser(String email, String password, LoginCallback callback) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<LoginResponse> call = apiInterface.loginUser(new LoginRequest(email, password));
         call.enqueue(new Callback<LoginResponse>() {
@@ -166,8 +176,9 @@ public class RegisterActivity extends AppCompatActivity {
                         authenticationManager.saveTokens(email, loginResponse.getToken(), loginResponse.getRefreshToken());
                         System.out.println(loginResponse.getToken());
                         System.out.println(loginResponse.getRefreshToken());
+                        callback.onLoginSuccess();
                     } else {
-                        Toast.makeText(RegisterActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        callback.onLoginFailure(loginResponse.getMessage());
                     }
                 } else {
                     Toast.makeText(RegisterActivity.this, "Une erreur est survenue.", Toast.LENGTH_SHORT).show();
@@ -176,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                callback.onLoginFailure(t.getMessage());
                 Log.e("RegisterActivity", "loginUser onFailure: " + t.getMessage());
             }
         });
