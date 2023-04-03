@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import fr.stvenchg.bleatz.EmailVerificationCallback;
 import fr.stvenchg.bleatz.fragment.AccountFragment;
@@ -47,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onEmailVerificationDone(boolean isEmailVerified) {
                     if (isEmailVerified) {
-                        checkPhoneVerified();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                checkPhoneVerified();
+                            }
+                        }, 1000);
                     }
                 }
             });

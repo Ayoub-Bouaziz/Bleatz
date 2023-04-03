@@ -145,6 +145,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PhoneVerifyResponse> call, Response<PhoneVerifyResponse> response) {
                 if (response.isSuccessful()) {
+                    Toast.makeText(VerifyPhoneActivity.this, "Numéro de téléphone vérifié.", Toast.LENGTH_SHORT).show();
+
                     // Le code est valide, rediriger vers MainActivity
                     Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
                     startActivity(intent);
