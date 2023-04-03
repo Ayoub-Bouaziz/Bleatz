@@ -37,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
         binding.navItemAccount.setOnClickListener(v -> replaceFragment(new AccountFragment(), R.id.nav_item_account));
 
         authenticationManager = new AuthenticationManager(this);
-        checkEmailVerified();
+
+        if (authenticationManager.getEmail() != null && authenticationManager.getAccessToken() != null && authenticationManager.getRefreshToken() != null)  {
+            checkEmailVerified();
+        }
     }
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {

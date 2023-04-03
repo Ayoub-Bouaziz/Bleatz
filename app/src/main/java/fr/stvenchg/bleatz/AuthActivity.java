@@ -54,7 +54,6 @@ public class AuthActivity extends AppCompatActivity {
                 Intent intent = new Intent(AuthActivity.this, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
             }
         });
 
@@ -65,7 +64,6 @@ public class AuthActivity extends AppCompatActivity {
                 Intent intent = new Intent(AuthActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
             }
         });
     }

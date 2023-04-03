@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                    finish();
+                                    finishAffinity();
                                 }
 
                                 @Override
