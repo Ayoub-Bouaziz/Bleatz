@@ -39,7 +39,7 @@ public class AuthActivity extends AppCompatActivity {
                 initializeViews();
                 refreshTokenAndRedirect();
             }
-        }, 1500); // Affiche l'écran de démarrage pendant 5 secondes
+        }, 1000); // Affiche l'écran de démarrage pendant 5 secondes
     }
 
     private void initializeViews() {
