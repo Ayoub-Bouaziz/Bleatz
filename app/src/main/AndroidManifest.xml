@@ -41,6 +41,11 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".AskEmailConfirmActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

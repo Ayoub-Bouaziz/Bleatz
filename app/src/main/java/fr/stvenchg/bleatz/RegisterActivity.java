@@ -1,5 +1,6 @@
 package fr.stvenchg.bleatz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -123,6 +124,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                             // Identification de l'utilisateur
                             loginUser(email, password);
+                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
                         } else {
                             Toast.makeText(RegisterActivity.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
                         }
