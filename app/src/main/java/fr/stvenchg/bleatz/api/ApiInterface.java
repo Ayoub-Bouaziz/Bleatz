@@ -22,4 +22,6 @@ public interface ApiInterface {
     Call<RefreshTokenResponse> refreshUserToken(@Body RefreshTokenRequest refreshTokenRequest);
     @GET("account")
     Call<AccountResponse> getAccount(@Header("Authorization") String accessToken);
+
+
 }

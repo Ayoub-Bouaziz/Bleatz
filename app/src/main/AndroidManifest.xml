@@ -46,6 +46,11 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".AddPhoneActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

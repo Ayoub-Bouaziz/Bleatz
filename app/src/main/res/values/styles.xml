@@ -250,4 +250,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="CustomEditTextStyle">
+        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+    </style>
+
 </resources>

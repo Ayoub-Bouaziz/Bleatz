@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         if (authenticationManager.getEmail() != null && authenticationManager.getAccessToken() != null && authenticationManager.getRefreshToken() != null)  {
             checkEmailVerified();
         }
+
+        Intent intent = new Intent(MainActivity.this, AddPhoneActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+        finish();
     }
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {
