@@ -1,25 +1,17 @@
-package fr.stvenchg.bleatz;
+package fr.stvenchg.bleatz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import fr.stvenchg.bleatz.api.ApiClient;
-import fr.stvenchg.bleatz.api.ApiInterface;
+import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
-import fr.stvenchg.bleatz.api.refreshToken.RefreshTokenRequest;
-import fr.stvenchg.bleatz.api.refreshToken.RefreshTokenResponse;
 import fr.stvenchg.bleatz.tasks.RefreshTokenTask;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AuthActivity extends AppCompatActivity {
 

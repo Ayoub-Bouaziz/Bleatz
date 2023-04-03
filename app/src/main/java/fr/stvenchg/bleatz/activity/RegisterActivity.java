@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz;
+package fr.stvenchg.bleatz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;

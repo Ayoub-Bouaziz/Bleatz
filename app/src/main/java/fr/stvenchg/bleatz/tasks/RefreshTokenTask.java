@@ -8,9 +8,8 @@ import android.widget.Toast;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import fr.stvenchg.bleatz.AuthActivity;
-import fr.stvenchg.bleatz.MainActivity;
-import fr.stvenchg.bleatz.RegisterActivity;
+import fr.stvenchg.bleatz.activity.AuthActivity;
+import fr.stvenchg.bleatz.activity.MainActivity;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;

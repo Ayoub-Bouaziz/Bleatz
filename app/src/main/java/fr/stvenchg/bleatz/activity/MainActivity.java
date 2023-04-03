@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz;
+package fr.stvenchg.bleatz.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,8 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import fr.stvenchg.bleatz.fragment.AccountFragment;
+import fr.stvenchg.bleatz.fragment.BurgerMenuFragment;
+import fr.stvenchg.bleatz.fragment.HomeFragment;
+import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.fragment.RestaurantLocationFragment;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_50"
-    tools:context=".BurgerMenuFragment">
+    tools:context=".fragment.BurgerMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
