@@ -10,4 +10,7 @@ public class PhoneSendRequest {
     public String getPhoneNumber() {
         return this.phone_number;
     }
+    public void setPhoneNumber(String phone_number) {
+        this.phone_number = phone_number;
+    }
 }

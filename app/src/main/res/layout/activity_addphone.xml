@@ -74,6 +74,7 @@
                     android:layout_height="0dp" />
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addphone_edittext_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint=""
@@ -106,7 +107,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/login_button_login"
+                android:id="@+id/addphone_button_sendcode"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="-4dp"
