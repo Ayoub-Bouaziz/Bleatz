@@ -84,7 +84,11 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="250dp"
                             android:layout_height="160dp"
-                            android:layout_margin="1dp" >
+                            android:layout_margin="1dp"
+                            app:cardCornerRadius="6dp"
+                            app:cardElevation="1dp"
+                            app:cardPreventCornerOverlap="false"
+                            app:cardUseCompatPadding="false">
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -116,7 +120,11 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="250dp"
                             android:layout_height="160dp"
-                            android:layout_margin="1dp" >
+                            android:layout_margin="1dp"
+                            app:cardCornerRadius="6dp"
+                            app:cardElevation="1dp"
+                            app:cardPreventCornerOverlap="false"
+                            app:cardUseCompatPadding="false">
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -176,7 +184,10 @@
 
         </LinearLayout>
 
+
+
     </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 
