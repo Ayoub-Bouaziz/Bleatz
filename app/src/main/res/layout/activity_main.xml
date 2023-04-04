@@ -95,7 +95,7 @@
                 app:elevation="2dp"
                 app:fabSize="mini"
                 app:rippleColor="@android:color/white"
-                app:srcCompat="@drawable/ic_order" />
+                app:srcCompat="@drawable/ic_cart" />
 
             <View
                 android:layout_width="0dp"
