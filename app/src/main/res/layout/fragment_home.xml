@@ -29,8 +29,56 @@
             android:layout_height="wrap_content"
             android:text="Bonjour invité,"
             android:textSize="24dp"
-            android:textColor="@color/grey_1000"
+            android:textColor="@color/grey_80"
             android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fhome_cardview_setaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:clipToPadding="false"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/spacing_medium"
+                    android:layout_height="0dp" />
+
+                <ImageButton
+                    android:layout_width="@dimen/spacing_xmlarge"
+                    android:layout_height="@dimen/spacing_xmlarge"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/grey_40"
+                    app:srcCompat="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/fhome_textview_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Où devons-nous livrer ?"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_40" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,14 +263,13 @@
                 android:layout_marginTop="12dp">
 
                 <androidx.cardview.widget.CardView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
+                    android:clipToPadding="false"
+                    app:cardBackgroundColor="@android:color/white"
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="false">
+                    app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -253,6 +300,7 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/fhome_button_favorder"
                             android:layout_width="0dp"
                             android:layout_height="44dp"
                             android:layout_weight="1"
@@ -267,7 +315,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/auth_button_register"
+                            android:id="@+id/fhome_button_favinfo"
                             android:layout_width="0dp"
                             android:layout_height="44dp"
                             android:layout_weight="1"
@@ -286,8 +334,85 @@
 
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="22dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🍔  Un en-cas ou un festin ?"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/grey_80"
+                android:textStyle="bold"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2"
+            android:layout_marginTop="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:background="@color/orange_50">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:clickable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Frites bacon"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/snack1" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey_50"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Menu Bleatz"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/menu1" />
+                </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
