@@ -36,7 +36,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         authenticationManager = new AuthenticationManager(this);
-        fetchUserDetails();
+        fetchUserDetails(new UserDetailsListener() {
+            @Override
+            public void onUserDetailsFetched(AccountResponse accountResponse) {
+                // Les informations de l'utilisateur ont été récupérées avec succès
+                // Utiliser les informations de l'utilisateur ici
+            }
+
+            @Override
+            public void onUserDetailsFetchFailed(Throwable t) {
+                // La récupération des informations de l'utilisateur a échoué
+                // Traiter l'erreur ici
+            }
+        });
 
         binding.navItemHome.setOnClickListener(v -> {
             String firstname = authenticationManager.getFirstname();
@@ -49,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navItemBurgermenu.setOnClickListener(v -> replaceFragment(new BurgerMenuFragment(), R.id.nav_item_burgermenu));
         binding.navItemLocation.setOnClickListener(v -> replaceFragment(new RestaurantLocationFragment(), R.id.nav_item_location));
-        binding.navItemAccount.setOnClickListener(v -> replaceFragment(new AccountFragment(), R.id.nav_item_account));
+        binding.navItemAccount.setOnClickListener(v -> {
+            String firstname = authenticationManager.getFirstname();
+            if (firstname != null) {
+                replaceFragment(AccountFragment.newInstance(firstname), R.id.nav_item_home);
+            } else {
+                replaceFragment(new AccountFragment(), R.id.nav_item_account);
+            }
+        });
 
 
         // Vérification de l'email et du numéro de téléphone
@@ -147,7 +166,14 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
         finishAffinity();
     }
-    private void fetchUserDetails() {
+
+    public interface UserDetailsListener {
+        void onUserDetailsFetched(AccountResponse accountResponse);
+        void onUserDetailsFetchFailed(Throwable t);
+    }
+
+
+    private void fetchUserDetails(UserDetailsListener listener) {
         AuthenticationManager authenticationManager = new AuthenticationManager(this);
         String accessToken = authenticationManager.getAccessToken();
 
@@ -168,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                                     accountResponse.getEmail(),
                                     accountResponse.getPhone(),
                                     accountResponse.getCreationDate()
-                                    );
+                            );
 
                             String firstname = accountResponse.getFirstname();
                             HomeFragment homeFragment = HomeFragment.newInstance(firstname);
@@ -177,16 +203,18 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println(accountResponse.getUserId());
                             System.out.println(accountResponse.getFirstname());
                             System.out.println(accountResponse.getLastname());
+                            listener.onUserDetailsFetched(accountResponse); // Appel de la méthode de l'interface avec les informations de l'utilisateur
                         }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<AccountResponse> call, Throwable t) {
-                    // Gérer l'échec de la requête
+                    listener.onUserDetailsFetchFailed(t); // Appel de la méthode de l'interface avec l'erreur
                 }
             });
         }
     }
+
 }
 
