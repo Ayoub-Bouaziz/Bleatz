@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.CartActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- En-tête -->
+    <TextView
+        android:id="@+id/txt_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mon panier"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"/>
+
+    <!-- Liste des articles du panier -->
+    <ListView
+        android:id="@+id/list_articles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_header"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
+
+    <!-- Total -->
+    <TextView
+        android:id="@+id/txt_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total : $10.50"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="end"
+        android:padding="16dp"
+        android:layout_below="@id/list_articles"/>
+
+    <!-- Bouton de commande -->
+    <Button
+        android:id="@+id/btn_commander"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Commander"
+        android:layout_alignParentBottom="true"/>
+
+    <!-- Layout personnalisé pour chaque article -->
+    <LinearLayout
+        android:id="@+id/layout_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/border_bottom">
+
+        <!-- Image de l'article -->
+        <ImageView
+            android:id="@+id/img_article"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/burger1"/>
+
+        <!-- Informations de l'article -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <!-- Titre de l'article -->
+            <TextView
+                android:id="@+id/txt_titre_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Burger au poulet"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <!-- Description de l'article -->
+            <TextView
+                android:id="@+id/txt_desc_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pain, poulet, salade, tomate, sauce"
+                android:textSize="16sp"
+                android:textColor="@color/grey_10"/>
+
+            <!-- Prix de l'article -->
+            <TextView
+                android:id="@+id/txt_prix_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$5.50"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
