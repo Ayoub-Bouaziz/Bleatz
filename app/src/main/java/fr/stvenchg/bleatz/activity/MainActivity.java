@@ -64,10 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navItemBurgermenu.setOnClickListener(v -> replaceFragment(new BurgerMenuFragment(), R.id.nav_item_burgermenu));
         binding.navItemLocation.setOnClickListener(v -> replaceFragment(new RestaurantLocationFragment(), R.id.nav_item_location));
+
         binding.navItemAccount.setOnClickListener(v -> {
             String firstname = authenticationManager.getFirstname();
+            String lastname = authenticationManager.getLastname();
+
             if (firstname != null) {
-                replaceFragment(AccountFragment.newInstance(firstname), R.id.nav_item_home);
+                replaceFragment(AccountFragment.newInstance(firstname, lastname), R.id.nav_item_account);
             } else {
                 replaceFragment(new AccountFragment(), R.id.nav_item_account);
             }
