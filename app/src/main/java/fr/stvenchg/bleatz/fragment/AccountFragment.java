@@ -11,12 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.activity.AuthActivity;
 import fr.stvenchg.bleatz.activity.RegisterActivity;
+import fr.stvenchg.bleatz.api.ApiClient;
+import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
+import fr.stvenchg.bleatz.api.account.AccountResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,33 +31,18 @@ import fr.stvenchg.bleatz.api.AuthenticationManager;
  */
 public class AccountFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TextView bonjourTextView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String firstname;
 
     public AccountFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccountFragment newInstance(String param1, String param2) {
+    public static AccountFragment newInstance(String firstname) {
         AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("firstname", firstname);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +51,7 @@ public class AccountFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            firstname = getArguments().getString("firstname");
         }
     }
 
@@ -75,6 +65,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bonjourTextView = view.findViewById(R.id.faccount_textview_nom);
+        bonjourTextView.setText(firstname);
 
         Button logoutButton = view.findViewById(R.id.faccount_button_logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -92,5 +85,18 @@ public class AccountFragment extends Fragment {
                     requireActivity().finishAffinity(); // Ferme l'activité actuelle
                 }
             }});
+
+        /*
+        Button cuisineButton = view.findViewById(R.id.faccount_button_cuisine);
+        if (utilisateur.getRole().equals("cuisine")) {
+            cuisineButton.setVisibility(View.VISIBLE);
+        } else {
+            cuisineButton.setVisibility(View.GONE);
+        }
+        */
+
     }
+
+
+
 }
