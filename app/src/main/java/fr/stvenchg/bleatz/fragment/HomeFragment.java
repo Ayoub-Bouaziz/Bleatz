@@ -1,5 +1,6 @@
 package fr.stvenchg.bleatz.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,17 +32,22 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     private TextView bonjourTextView;
     private String firstname;
+    private String address;
+    private TextView addressTextView;
 
     private LinearLayout addAddressBar;
+
+    private static final int REQUEST_CODE = 100;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance(String firstname) {
+    public static HomeFragment newInstance(String firstname, String address) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString("firstname", firstname);
+        args.putString("address", address);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,6 +57,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             firstname = getArguments().getString("firstname");
+            address = getArguments().getString("address");
         }
     }
 
@@ -62,19 +69,33 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                String address = data.getStringExtra("address");
+                addressTextView.setText(address);
+            }
+        }
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         bonjourTextView = view.findViewById(R.id.fhome_textview_bonjour);
         addAddressBar = view.findViewById(R.id.fhome_linearlayout_addaddress);
+        addressTextView = view.findViewById(R.id.fhome_textview_address);
 
         bonjourTextView.setText("Salut " + firstname + ",");
+        addressTextView.setText(address);
 
         addAddressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddAddressActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 

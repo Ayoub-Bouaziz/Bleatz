@@ -41,17 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navItemHome.setOnClickListener(v -> {
             String firstname = authenticationManager.getFirstname();
-            if (firstname != null) {
-                replaceFragment(HomeFragment.newInstance(firstname), R.id.nav_item_home);
-            } else {
-                replaceFragment(new HomeFragment(), R.id.nav_item_home);
-            }
-        });
+            String address = authenticationManager.getAddress();
 
-        binding.navItemHome.setOnClickListener(v -> {
-            String firstname = authenticationManager.getFirstname();
             if (firstname != null) {
-                replaceFragment(HomeFragment.newInstance(firstname), R.id.nav_item_home);
+                replaceFragment(HomeFragment.newInstance(firstname, address), R.id.nav_item_home);
             } else {
                 replaceFragment(new HomeFragment(), R.id.nav_item_home);
             }
@@ -177,11 +170,14 @@ public class MainActivity extends AppCompatActivity {
                                     accountResponse.getLastname(),
                                     accountResponse.getEmail(),
                                     accountResponse.getPhone(),
-                                    accountResponse.getCreationDate()
+                                    accountResponse.getCreationDate(),
+                                    accountResponse.getAddress()
                                     );
 
                             String firstname = accountResponse.getFirstname();
-                            HomeFragment homeFragment = HomeFragment.newInstance(firstname);
+                            String address = accountResponse.getAddress();
+
+                            HomeFragment homeFragment = HomeFragment.newInstance(firstname, address);
                             replaceFragment(homeFragment, R.id.nav_item_home);
 
                             System.out.println(accountResponse.getUserId());

@@ -19,6 +19,8 @@ public class AuthenticationManager {
 
     private static final String CREATION_DATE = "creation_date";
 
+    private static final String ADDRESS = "address";
+
     private SharedPreferences sharedPreferences;
 
     public AuthenticationManager(Context context) {
@@ -33,7 +35,7 @@ public class AuthenticationManager {
                 .apply();
     }
 
-    public void saveUserDetails(String idUser, String firstname, String lastname, String email, String phone, String creation_date) {
+    public void saveUserDetails(String idUser, String firstname, String lastname, String email, String phone, String creation_date, String address) {
         sharedPreferences.edit()
                 .putString(USER_ID, idUser)
                 .putString(FIRSTNAME, firstname)
@@ -41,6 +43,7 @@ public class AuthenticationManager {
                 .putString(EMAIL, email)
                 .putString(PHONE, phone)
                 .putString(CREATION_DATE, creation_date)
+                .putString(ADDRESS, address)
                 .apply();
     }
 
@@ -75,6 +78,16 @@ public class AuthenticationManager {
         return sharedPreferences.getString(CREATION_DATE, null);
     }
 
+    public String getAddress() {
+        return sharedPreferences.getString(ADDRESS, null);
+    }
+
+    public void setAddress(String address) {
+        sharedPreferences.edit()
+                .putString(ADDRESS, address)
+                .apply();
+    }
+
     public void clearTokens() {
         sharedPreferences.edit()
                 .remove(ACCESS_TOKEN_KEY)
@@ -85,6 +98,7 @@ public class AuthenticationManager {
                 .remove(LASTNAME)
                 .remove(PHONE)
                 .remove(CREATION_DATE)
+                .remove(ADDRESS)
                 .apply();
     }
 }

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,10 +36,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddAddressActivity extends AppCompatActivity {
-
-    private AutoCompleteTextView searchBar;
     private RecyclerView suggestionsList;
     private SuggestionsAdapter suggestionsAdapter;
+    private AutoCompleteTextView addressAutocompleteView;
+    private ImageButton clearImageButton;
+
+    private ImageButton goBackImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,23 +53,49 @@ public class AddAddressActivity extends AppCompatActivity {
             Places.initialize(getApplicationContext(), "AIzaSyDcUCQj0LefK5FGbQ6J0hOagVOwoLD_JH0");
         }
 
-        searchBar = findViewById(R.id.search_bar);
+        addressAutocompleteView = findViewById(R.id.addaddress_autocompletetextview_address);
+
+        clearImageButton = findViewById(R.id.addaddress_imagebutton_clear);
+        clearImageButton.setVisibility(View.INVISIBLE);
+
         suggestionsList = findViewById(R.id.suggestions_list);
+        goBackImageButton = findViewById(R.id.addaddress_imagebutton_goback);
 
         suggestionsAdapter = new SuggestionsAdapter(this, suggestionClickListener);
 
         suggestionsList.setLayoutManager(new LinearLayoutManager(this));
         suggestionsList.setAdapter(suggestionsAdapter);
 
-        searchBar.addTextChangedListener(new TextWatcher() {
+        clearImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addressAutocompleteView.setText("");
+            }
+        });
+
+        goBackImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        addressAutocompleteView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Update suggestions
+                // Afficher les suggestions
                 fetchSuggestions(s.toString());
+
+                // Afficher ou masquer le bouton vider texte
+                if (s.length() > 0) {
+                    clearImageButton.setVisibility(View.VISIBLE);
+                } else {
+                    clearImageButton.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -120,6 +150,11 @@ public class AddAddressActivity extends AppCompatActivity {
                         if (updateAddressResponse != null && updateAddressResponse.isSuccess()) {
                             Toast.makeText(AddAddressActivity.this, updateAddressResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("address", address);
+                            setResult(RESULT_OK, resultIntent);
+
+                            authenticationManager.setAddress(address);
                             finish();
                         }
                     }

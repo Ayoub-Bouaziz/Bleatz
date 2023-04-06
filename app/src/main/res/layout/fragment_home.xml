@@ -50,7 +50,8 @@
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginEnd="12dp">
 
                 <View
                     android:layout_width="@dimen/spacing_medium"
@@ -70,7 +71,8 @@
                     android:gravity="center_vertical"
                     android:text="Où devons-nous livrer ?"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/grey_40" />
+                    android:textColor="@color/grey_40"
+                    android:singleLine="true"/>
 
                 <View
                     android:layout_width="0dp"
