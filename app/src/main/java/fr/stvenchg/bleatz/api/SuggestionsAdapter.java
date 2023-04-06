@@ -18,11 +18,16 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
     private final Context context;
     private final List<PlacePrediction> predictions;
-    private final OnSuggestionClickListener suggestionClickListener = null;
+    private final OnSuggestionClickListener suggestionClickListener;
 
-    public SuggestionsAdapter(Context context) {
+    public SuggestionsAdapter(Context context, OnSuggestionClickListener suggestionClickListener) {
         this.context = context;
+        this.suggestionClickListener = suggestionClickListener;
         this.predictions = new ArrayList<>();
+    }
+
+    public interface OnSuggestionClickListener {
+        void onSuggestionClick(PlacePrediction prediction);
     }
 
     @NonNull
@@ -51,10 +56,6 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         predictions.clear();
         predictions.addAll(newPredictions);
         notifyDataSetChanged();
-    }
-
-    public interface OnSuggestionClickListener {
-        void onSuggestionClick(PlacePrediction prediction);
     }
 
     @Override

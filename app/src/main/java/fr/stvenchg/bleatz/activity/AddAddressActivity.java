@@ -1,10 +1,12 @@
 package fr.stvenchg.bleatz.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,9 +18,15 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import java.util.List;
 
 import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.api.ApiClient;
+import fr.stvenchg.bleatz.api.ApiInterface;
+import fr.stvenchg.bleatz.api.AuthenticationManager;
 import fr.stvenchg.bleatz.api.GooglePlacesApiService;
+import fr.stvenchg.bleatz.api.PlacePrediction;
 import fr.stvenchg.bleatz.api.PlacesAutocompleteResponse;
 import fr.stvenchg.bleatz.api.SuggestionsAdapter;
+import fr.stvenchg.bleatz.api.set.SetAddressRequest;
+import fr.stvenchg.bleatz.api.set.SetAddressResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +52,7 @@ public class AddAddressActivity extends AppCompatActivity {
         searchBar = findViewById(R.id.search_bar);
         suggestionsList = findViewById(R.id.suggestions_list);
 
-        suggestionsAdapter = new SuggestionsAdapter(this);
+        suggestionsAdapter = new SuggestionsAdapter(this, suggestionClickListener);
 
         suggestionsList.setLayoutManager(new LinearLayoutManager(this));
         suggestionsList.setAdapter(suggestionsAdapter);
@@ -92,4 +100,36 @@ public class AddAddressActivity extends AppCompatActivity {
                 }
             });
         }
+
+    private final SuggestionsAdapter.OnSuggestionClickListener suggestionClickListener = new SuggestionsAdapter.OnSuggestionClickListener() {
+        @Override
+        public void onSuggestionClick(PlacePrediction prediction) {
+            String address = prediction.getDescription();
+            AuthenticationManager authenticationManager = new AuthenticationManager(AddAddressActivity.this);
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<SetAddressResponse> call = apiInterface.setAddress(
+                    "Bearer " + authenticationManager.getAccessToken(),
+                    new SetAddressRequest(address)
+            );
+
+            call.enqueue(new Callback<SetAddressResponse>() {
+                @Override
+                public void onResponse(Call<SetAddressResponse> call, Response<SetAddressResponse> response) {
+                    if (response.isSuccessful()) {
+                        SetAddressResponse updateAddressResponse = response.body();
+                        if (updateAddressResponse != null && updateAddressResponse.isSuccess()) {
+                            Toast.makeText(AddAddressActivity.this, updateAddressResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            finish();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SetAddressResponse> call, Throwable t) {
+
+                }
+            });
+        }
+    };
     }
