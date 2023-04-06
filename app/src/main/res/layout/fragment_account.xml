@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
-        android:layout_width="370dp"
+        android:layout_width="330dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
@@ -42,8 +42,7 @@
                 android:text="Invité"
                 android:textSize="24dp"
                 android:textColor="@color/grey_80"
-                android:textStyle="bold"
-                android:layout_marginStart="20dp"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/faccount_recyclerview_settings"
@@ -75,9 +74,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginRight="4dp"
-                android:background="@drawable/btn_rounded_blue_300"
+                android:background="@drawable/btn_rounded_grey_700"
                 android:gravity="center"
                 android:text="Accès cuisine"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/faccount_button_admin"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/btn_rounded_grey_700"
+                android:gravity="center"
+                android:text="Accès administrateur"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
