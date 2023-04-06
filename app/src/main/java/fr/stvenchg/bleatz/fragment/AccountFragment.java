@@ -22,6 +22,7 @@ import java.util.List;
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.SettingsAdapter;
 import fr.stvenchg.bleatz.SettingsItem;
+import fr.stvenchg.bleatz.activity.AccountInfosActivity;
 import fr.stvenchg.bleatz.activity.AuthActivity;
 import fr.stvenchg.bleatz.activity.RegisterActivity;
 import fr.stvenchg.bleatz.api.ApiClient;
@@ -102,7 +103,9 @@ public class AccountFragment extends Fragment {
         settingsItems.add(new SettingsItem(R.drawable.ic_account, "Mes informations", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Action
+                Intent intent = new Intent(requireActivity(), AccountInfosActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }));
 

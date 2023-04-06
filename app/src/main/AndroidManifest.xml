@@ -65,6 +65,11 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".activity.AccountInfosActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>
