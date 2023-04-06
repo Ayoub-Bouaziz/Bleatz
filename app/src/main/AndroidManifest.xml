@@ -15,6 +15,10 @@
         tools:targetApi="31"
         android:networkSecurityConfig="@xml/network_security_config">
 
+        <meta-data
+            android:name="com.google.android.geo.AIzaSyDcUCQj0LefK5FGbQ6J0hOagVOwoLD_JH0"
+            android:value="AIzaSyDcUCQj0LefK5FGbQ6J0hOagVOwoLD_JH0"/>
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
@@ -53,6 +57,11 @@
 
         <activity
             android:name=".activity.VerifyPhoneActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".activity.AddAddressActivity"
             android:exported="true">
         </activity>
 

@@ -1,5 +1,6 @@
 package fr.stvenchg.bleatz.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.activity.AddAddressActivity;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
@@ -28,6 +31,8 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     private TextView bonjourTextView;
     private String firstname;
+
+    private LinearLayout addAddressBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,7 +66,18 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         bonjourTextView = view.findViewById(R.id.fhome_textview_bonjour);
+        addAddressBar = view.findViewById(R.id.fhome_linearlayout_addaddress);
+
         bonjourTextView.setText("Salut " + firstname + ",");
+
+        addAddressBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddAddressActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.LinearLayout;
 
 import fr.stvenchg.bleatz.EmailVerificationCallback;
 import fr.stvenchg.bleatz.fragment.AccountFragment;
@@ -37,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
         authenticationManager = new AuthenticationManager(this);
         fetchUserDetails();
+
+        binding.navItemHome.setOnClickListener(v -> {
+            String firstname = authenticationManager.getFirstname();
+            if (firstname != null) {
+                replaceFragment(HomeFragment.newInstance(firstname), R.id.nav_item_home);
+            } else {
+                replaceFragment(new HomeFragment(), R.id.nav_item_home);
+            }
+        });
 
         binding.navItemHome.setOnClickListener(v -> {
             String firstname = authenticationManager.getFirstname();
