@@ -39,7 +39,7 @@ public class KitchenActivity extends AppCompatActivity {
 
         kitchenResponse = new KitchenResponse();
         orderList = new ArrayList<>();
-        orderAdapter = new OrderAdapter(orderList);
+        orderAdapter = new OrderAdapter(orderList,this);
         fetchOrders();
 
         recyclerView.setAdapter(orderAdapter);
