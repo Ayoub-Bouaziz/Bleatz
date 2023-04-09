@@ -63,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
         binding.navItemLocation.setOnClickListener(v -> replaceFragment(new RestaurantLocationFragment(), R.id.nav_item_location));
         binding.navItemAccount.setOnClickListener(v -> {
             String firstname = authenticationManager.getFirstname();
+            String role = authenticationManager.getRole();
             if (firstname != null) {
-                replaceFragment(AccountFragment.newInstance(firstname), R.id.nav_item_home);
+                replaceFragment(AccountFragment.newInstance(firstname, role), R.id.nav_item_home);
             } else {
                 replaceFragment(new AccountFragment(), R.id.nav_item_account);
             }
@@ -193,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
                                     accountResponse.getLastname(),
                                     accountResponse.getEmail(),
                                     accountResponse.getPhone(),
-                                    accountResponse.getCreationDate()
+                                    accountResponse.getCreationDate(),
+                                    accountResponse.getRole()
                             );
 
                             String firstname = accountResponse.getFirstname();

@@ -1,6 +1,7 @@
 package fr.stvenchg.bleatz.api;
 
 import fr.stvenchg.bleatz.api.account.AccountResponse;
+import fr.stvenchg.bleatz.api.kitchen.KitchenResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 import fr.stvenchg.bleatz.api.phone.send.PhoneSendRequest;
@@ -26,6 +27,10 @@ public interface ApiInterface {
     Call<RefreshTokenResponse> refreshUserToken(@Body RefreshTokenRequest refreshTokenRequest);
     @GET("account")
     Call<AccountResponse> getAccount(@Header("Authorization") String accessToken);
+
+    @GET("kitchen/orders")
+    Call<KitchenResponse> getKitchenOrders(@Header("Authorization") String accessToken);
+
     @POST("phone/send")
     Call<PhoneSendResponse> sendPhoneCode(@Header("Authorization") String accessToken, @Body PhoneSendRequest phoneSendRequest);
     @POST("phone/verify")
