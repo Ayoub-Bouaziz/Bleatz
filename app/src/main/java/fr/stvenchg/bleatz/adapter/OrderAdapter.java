@@ -66,11 +66,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 
         public void bind(KitchenResponse.Order order) {
-            orderIdTextView.setText("Commande " + String.valueOf(order.getIdCommande()));
-            orderDateTextView.setText(order.getDateCommande());
-            orderStatusTextView.setText(order.getStatut());
+            orderIdTextView.setText("Commande n°" + String.valueOf(order.getIdCommande()));
+            orderDateTextView.setText("Passée le : " +  order.getDateCommande());
+            if (order.getStatut().equals("processing")) {
+                orderStatusTextView.setText("À préparer");
+            } else {
+                orderStatusTextView.setText(order.getStatut());
+            }
         }
-
 
 
     }
