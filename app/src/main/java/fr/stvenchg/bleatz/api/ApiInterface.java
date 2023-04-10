@@ -1,8 +1,13 @@
 package fr.stvenchg.bleatz.api;
 
+import java.util.List;
+
 import fr.stvenchg.bleatz.api.account.AccountResponse;
+import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
+import fr.stvenchg.bleatz.api.menu.MenuResponse;
+import fr.stvenchg.bleatz.api.panier.InclurePanierResponse;
 import fr.stvenchg.bleatz.api.phone.send.PhoneSendRequest;
 import fr.stvenchg.bleatz.api.phone.send.PhoneSendResponse;
 import fr.stvenchg.bleatz.api.phone.verify.PhoneVerifyRequest;
@@ -30,5 +35,13 @@ public interface ApiInterface {
     Call<PhoneSendResponse> sendPhoneCode(@Header("Authorization") String accessToken, @Body PhoneSendRequest phoneSendRequest);
     @POST("phone/verify")
     Call<PhoneVerifyResponse> verifyPhoneCode(@Header("Authorization") String accessToken, @Body PhoneVerifyRequest phoneVerifyRequest);
+    @GET("inclurepanier")
+    Call<List<InclurePanierResponse>> getInclurePanier(@Header("Authorization") String accessToken);
+    @GET("products/burger")
+    Call<List<BurgerResponse>> getBurgers(@Header("Authorization") String accessToken);
+    @GET("products/menu")
+    Call<List<MenuResponse>> getMenus(@Header("Authorization") String accessToken);
+
+
 
 }
