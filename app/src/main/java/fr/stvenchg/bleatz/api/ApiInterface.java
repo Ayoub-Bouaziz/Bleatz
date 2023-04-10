@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.stvenchg.bleatz.api.account.AccountResponse;
 import fr.stvenchg.bleatz.api.burger.BurgerResponse;
+import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 import fr.stvenchg.bleatz.api.menu.MenuResponse;
@@ -21,6 +22,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     @POST("register")
@@ -38,7 +40,9 @@ public interface ApiInterface {
     @GET("inclurepanier")
     Call<List<InclurePanierResponse>> getInclurePanier(@Header("Authorization") String accessToken);
     @GET("products/burger")
-    Call<List<BurgerResponse>> getBurgers(@Header("Authorization") String accessToken);
+    Call<BurgerResponse> getBurgers();
+    @GET("products/burger")
+    Call<DetailsBurgerResponse> getBurgersDetails(@Query("id") int idBurger);
     @GET("products/menu")
     Call<List<MenuResponse>> getMenus(@Header("Authorization") String accessToken);
 

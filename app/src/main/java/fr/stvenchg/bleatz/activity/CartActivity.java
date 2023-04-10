@@ -24,7 +24,7 @@ public class CartActivity extends AppCompatActivity {
     private ListView listeMenus;
     private List<MenuResponse> menus = new ArrayList<>();
     private List<BurgerResponse> burgers = new ArrayList<>();
-
+/*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,5 +89,5 @@ public class CartActivity extends AppCompatActivity {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }

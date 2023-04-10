@@ -44,7 +44,7 @@ public class MenuAdapter extends ArrayAdapter<MenuResponse> {
 
         // Récupération du burger correspondant au menu
 
-
+/*
         // Chargement de l'image du burger à partir de l'URL
         Picasso.get().load(menu.getImage()).into(imageArticle);
 
@@ -52,7 +52,7 @@ public class MenuAdapter extends ArrayAdapter<MenuResponse> {
         titreArticle.setText(menu.getNomBurger());
         descArticle.setText(menu.getDescription());
         prixArticle.setText("$" + menu.getPrix());
-
+*/
         return convertView;
     }
 }

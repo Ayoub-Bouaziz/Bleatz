@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import fr.stvenchg.bleatz.EmailVerificationCallback;
 import fr.stvenchg.bleatz.fragment.AccountFragment;
+
 import fr.stvenchg.bleatz.fragment.BurgerMenuFragment;
 import fr.stvenchg.bleatz.fragment.HomeFragment;
 import fr.stvenchg.bleatz.R;
