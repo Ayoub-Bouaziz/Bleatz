@@ -201,6 +201,7 @@
         <item name="android:textColorHint">@color/grey_40</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Subhead</item>
         <item name="android:textColor">@color/grey_90</item>
+        <item name="android:backgroundTint">@color/grey_800</item>
     </style>
 
     <style name="EditText.Flat.Grey.Small" parent="@style/AppTheme">
