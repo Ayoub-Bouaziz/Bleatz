@@ -22,16 +22,22 @@ import retrofit2.http.POST;
 public interface ApiInterface {
     @POST("register")
     Call<RegistrationResponse> registerUser(@Body RegistrationRequest registrationRequest);
+
     @POST("login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
+
     @POST("refresh-token")
     Call<RefreshTokenResponse> refreshUserToken(@Body RefreshTokenRequest refreshTokenRequest);
+
     @GET("account")
     Call<AccountResponse> getAccount(@Header("Authorization") String accessToken);
+
     @POST("phone/send")
     Call<PhoneSendResponse> sendPhoneCode(@Header("Authorization") String accessToken, @Body PhoneSendRequest phoneSendRequest);
+
     @POST("phone/verify")
     Call<PhoneVerifyResponse> verifyPhoneCode(@Header("Authorization") String accessToken, @Body PhoneVerifyRequest phoneVerifyRequest);
+
     @POST("set")
     Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);
 }
