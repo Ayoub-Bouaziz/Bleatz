@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +50,11 @@ public class AddAddressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaddress);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         // Initialize the Google Places SDK
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), "AIzaSyDcUCQj0LefK5FGbQ6J0hOagVOwoLD_JH0");
@@ -59,7 +66,6 @@ public class AddAddressActivity extends AppCompatActivity {
         clearImageButton.setVisibility(View.INVISIBLE);
 
         suggestionsList = findViewById(R.id.suggestions_list);
-        goBackImageButton = findViewById(R.id.addaddress_imagebutton_goback);
 
         suggestionsAdapter = new SuggestionsAdapter(this, suggestionClickListener);
 
@@ -70,13 +76,6 @@ public class AddAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addressAutocompleteView.setText("");
-            }
-        });
-
-        goBackImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
 
@@ -102,6 +101,17 @@ public class AddAddressActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void fetchSuggestions(String query) {
