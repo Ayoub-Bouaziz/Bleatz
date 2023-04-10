@@ -40,4 +40,5 @@ public interface ApiInterface {
 
     @POST("set")
     Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);
+
 }
