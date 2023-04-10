@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
@@ -27,8 +28,11 @@ public class KitchenActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OrderAdapter orderAdapter;
     private List<KitchenResponse.Order> orderList;
-
     private KitchenResponse kitchenResponse;
+
+    private Handler handler;
+
+    private Runnable updateOrdersRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,40 @@ public class KitchenActivity extends AppCompatActivity {
         fetchOrders();
 
         recyclerView.setAdapter(orderAdapter);
+
+        handler = new Handler();
+        updateOrdersRunnable = new Runnable() {
+            @Override
+            public void run() {
+                fetchOrders();
+                handler.postDelayed(this, 1000);
+            }
+        };
+
+        handler.post(updateOrdersRunnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(updateOrdersRunnable);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(updateOrdersRunnable);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restartUpdateOrders();
+    }
+
+    private void restartUpdateOrders() {
+        handler.removeCallbacks(updateOrdersRunnable);
+        handler.post(updateOrdersRunnable);
     }
 
     @Override

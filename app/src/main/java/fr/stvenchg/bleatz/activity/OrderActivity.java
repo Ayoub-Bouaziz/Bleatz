@@ -57,11 +57,6 @@ public class OrderActivity extends AppCompatActivity {
 
 
         recyclerView.setAdapter(contentAdapter);
-
-
-
-
-
     }
 
     private void fetchContent() {
@@ -87,12 +82,7 @@ public class OrderActivity extends AppCompatActivity {
                 public void onFailure(Call<OrderContentResponse> call, Throwable t) {
 
                 }
-
-
             });
         }
     }
-
-
-
 }
