@@ -1,6 +1,6 @@
 package fr.stvenchg.bleatz.api.set;
 
-public class SetAddressResponse {
+public class SetResponse {
     private boolean success;
     private String message;
 

@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-
-import java.util.List;
 
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.api.ApiClient;
@@ -29,8 +26,8 @@ import fr.stvenchg.bleatz.api.GooglePlacesApiService;
 import fr.stvenchg.bleatz.api.PlacePrediction;
 import fr.stvenchg.bleatz.api.PlacesAutocompleteResponse;
 import fr.stvenchg.bleatz.api.SuggestionsAdapter;
-import fr.stvenchg.bleatz.api.set.SetAddressRequest;
-import fr.stvenchg.bleatz.api.set.SetAddressResponse;
+import fr.stvenchg.bleatz.api.set.SetRequest;
+import fr.stvenchg.bleatz.api.set.SetResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -147,16 +144,16 @@ public class AddAddressActivity extends AppCompatActivity {
             String address = prediction.getDescription();
             AuthenticationManager authenticationManager = new AuthenticationManager(AddAddressActivity.this);
             ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Call<SetAddressResponse> call = apiInterface.setAddress(
+            Call<SetResponse> call = apiInterface.setAddress(
                     "Bearer " + authenticationManager.getAccessToken(),
-                    new SetAddressRequest(address)
+                    new SetRequest("address", address)
             );
 
-            call.enqueue(new Callback<SetAddressResponse>() {
+            call.enqueue(new Callback<SetResponse>() {
                 @Override
-                public void onResponse(Call<SetAddressResponse> call, Response<SetAddressResponse> response) {
+                public void onResponse(Call<SetResponse> call, Response<SetResponse> response) {
                     if (response.isSuccessful()) {
-                        SetAddressResponse updateAddressResponse = response.body();
+                        SetResponse updateAddressResponse = response.body();
                         if (updateAddressResponse != null && updateAddressResponse.isSuccess()) {
                             Toast.makeText(AddAddressActivity.this, updateAddressResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -171,7 +168,7 @@ public class AddAddressActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<SetAddressResponse> call, Throwable t) {
+                public void onFailure(Call<SetResponse> call, Throwable t) {
 
                 }
             });

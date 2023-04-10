@@ -11,8 +11,8 @@ import fr.stvenchg.bleatz.api.refreshToken.RefreshTokenRequest;
 import fr.stvenchg.bleatz.api.refreshToken.RefreshTokenResponse;
 import fr.stvenchg.bleatz.api.register.RegistrationRequest;
 import fr.stvenchg.bleatz.api.register.RegistrationResponse;
-import fr.stvenchg.bleatz.api.set.SetAddressRequest;
-import fr.stvenchg.bleatz.api.set.SetAddressResponse;
+import fr.stvenchg.bleatz.api.set.SetRequest;
+import fr.stvenchg.bleatz.api.set.SetResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -33,5 +33,5 @@ public interface ApiInterface {
     @POST("phone/verify")
     Call<PhoneVerifyResponse> verifyPhoneCode(@Header("Authorization") String accessToken, @Body PhoneVerifyRequest phoneVerifyRequest);
     @POST("set")
-    Call<SetAddressResponse> setAddress(@Header("Authorization") String accessToken, @Body SetAddressRequest setAddressRequest);
+    Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);
 }

@@ -3,6 +3,7 @@ package fr.stvenchg.bleatz.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,12 +11,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.TextWatcher;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.api.ApiClient;
+import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
+import fr.stvenchg.bleatz.api.account.AccountResponse;
+import fr.stvenchg.bleatz.api.set.SetRequest;
+import fr.stvenchg.bleatz.api.set.SetResponse;
+import fr.stvenchg.bleatz.fragment.HomeFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AccountInfosActivity extends AppCompatActivity {
 
@@ -35,6 +46,7 @@ public class AccountInfosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accountinfos);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,9 +78,13 @@ public class AccountInfosActivity extends AppCompatActivity {
         firstnameEditText.setText(firstname);
         lastnameEditText.setText(lastname);
         phoneEditText.setText(phone);
+        addressEditText.setInputType(InputType.TYPE_NULL);
         addressEditText.setText(address);
         addressEditText.setInputType(InputType.TYPE_NULL);
         emailEditText.setText(email);
+
+        firstnameEditText.addTextChangedListener(editTextWatcher);
+        lastnameEditText.addTextChangedListener(editTextWatcher);
 
         addressEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +94,14 @@ public class AccountInfosActivity extends AppCompatActivity {
 
                 String address = intentAddress.getStringExtra("address");
                 addressEditText.setText(address);
+            }
+        });
+
+        saveChangesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChanges("firstname", firstnameEditText.getText().toString());
+                setChanges("lastname", lastnameEditText.getText().toString());
             }
         });
     }
@@ -102,5 +126,57 @@ public class AccountInfosActivity extends AppCompatActivity {
                 addressEditText.setText(newAddress);
             }
         }
+    }
+
+    private TextWatcher editTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            saveChangesButton.setEnabled(true);
+        }
+    };
+
+    private void setChanges(String field, String value) {
+        AuthenticationManager authenticationManager = new AuthenticationManager(AccountInfosActivity.this);
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<SetResponse> call = apiInterface.setAddress(
+                "Bearer " + authenticationManager.getAccessToken(),
+                new SetRequest(field, value)
+        );
+
+        call.enqueue(new Callback<SetResponse>() {
+            @Override
+            public void onResponse(Call<SetResponse> call, Response<SetResponse> response) {
+                if (response.isSuccessful()) {
+                    SetResponse updateResponse = response.body();
+                    if (updateResponse != null && updateResponse.isSuccess()) {
+                        Toast.makeText(AccountInfosActivity.this, updateResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        if (field.equals("firstname")) {
+                            authenticationManager.setFirstname(value);
+                        }
+                        else if (field.equals("lastname")){
+                            authenticationManager.setLastname(value);
+                        }
+
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SetResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

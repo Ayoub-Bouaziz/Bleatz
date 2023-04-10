@@ -88,6 +88,18 @@ public class AuthenticationManager {
                 .apply();
     }
 
+    public void setFirstname(String firstname) {
+        sharedPreferences.edit()
+                .putString(FIRSTNAME, firstname)
+                .apply();
+    }
+
+    public void setLastname(String lastname) {
+        sharedPreferences.edit()
+                .putString(FIRSTNAME, lastname)
+                .apply();
+    }
+
     public void clearTokens() {
         sharedPreferences.edit()
                 .remove(ACCESS_TOKEN_KEY)

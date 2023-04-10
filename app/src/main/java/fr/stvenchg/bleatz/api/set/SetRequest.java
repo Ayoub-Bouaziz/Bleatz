@@ -1,11 +1,11 @@
 package fr.stvenchg.bleatz.api.set;
 
-public class SetAddressRequest {
+public class SetRequest {
     private String field;
     private String value;
 
-    public SetAddressRequest(String value) {
-        this.field = "address";
+    public SetRequest(String field, String value) {
+        this.field = field;
         this.value = value;
     }
 
