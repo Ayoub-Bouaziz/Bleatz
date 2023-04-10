@@ -39,6 +39,7 @@ import retrofit2.Callback;
  */
 public class AccountFragment extends Fragment {
 
+    private AuthenticationManager authenticationManager;
     private TextView bonjourTextView;
 
     private String firstname;
@@ -65,6 +66,8 @@ public class AccountFragment extends Fragment {
             firstname = getArguments().getString("firstname");
             lastname = getArguments().getString("lastname");
         }
+
+        authenticationManager = new AuthenticationManager(requireActivity());
     }
 
     @Override
@@ -104,12 +107,17 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), AccountInfosActivity.class);
+                intent.putExtra("idUser", authenticationManager.getUserId());
+                intent.putExtra("firstname", authenticationManager.getFirstname());
+                intent.putExtra("lastname", authenticationManager.getLastname());
+                intent.putExtra("phone", authenticationManager.getPhone());
+                intent.putExtra("email", authenticationManager.getEmail());
+                intent.putExtra("address", authenticationManager.getAddress());
+
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }));
-
-        // Ajoutez d'autres éléments de réglage si nécessaire
 
         SettingsAdapter settingsAdapter = new SettingsAdapter(settingsItems);
         settingsRecyclerView.setAdapter(settingsAdapter);

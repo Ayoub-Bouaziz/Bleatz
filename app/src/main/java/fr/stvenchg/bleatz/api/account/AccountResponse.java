@@ -15,6 +15,8 @@ public class AccountResponse {
     private String creation_date;
 
     private String address;
+
+    private String role;
     private boolean success;
 
     public boolean isSuccess() {
@@ -44,9 +46,11 @@ public class AccountResponse {
     public String getCreationDate() {
         return creation_date;
     }
-
     public String getAddress() {
         return address;
+    }
+    public String getRole() {
+        return role;
     }
 }
 

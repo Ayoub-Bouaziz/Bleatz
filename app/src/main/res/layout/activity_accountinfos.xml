@@ -1,17 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@color/grey_50">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="@color/grey_50" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Mes informations"
+                android:textColor="@color/grey_600"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hello" />
+            android:text="INFORMATIONS PERSONNELLES"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/grey_800"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:text="Prénom"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_60"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/accountinfos_edittext_firstname"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Prénom"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:text="Prénom" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:text="Nom"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_60"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/accountinfos_edittext_lastname"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:text="Nom" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:text="Numéro de téléphone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_60"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/accountinfos_edittext_phone"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Numéro de téléphone"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:text="+336"
+            android:enabled="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="MES ADRESSES"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/grey_800"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:text="Domicile"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_60"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/accountinfos_edittext_address"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adresse de livraison"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:text="IUT de Montreuil, 140 rue de la Nouvelle France, 93100 Montreuil, France" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="INFORMATIONS DE CONNEXION"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/grey_800"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:text="Adresse e-mail"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_60"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/accountinfos_edittext_email"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Addresse e-mail"
+            android:inputType="textEmailAddress"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:text="email@gmail.com"
+            android:enabled="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_small"
+            android:text="Mot de passe"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_60"
+            android:layout_marginTop="15dp"
+            android:enabled="false"/>
+
+        <EditText
+            android:id="@+id/accountinfos_edittext_password"
+            style="@style/EditText.Flat.Grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mot de passe"
+            android:minHeight="@dimen/spacing_xmlarge"
+            android:text="motdepasse"
+            android:inputType="textPassword"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <Button
+                android:id="@+id/accountinfos_button_savechanges"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/btn_rounded_orange_300"
+                android:gravity="center"
+                android:text="Enregistrer les modifications"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/accountinfos_textview_deleteaccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supprimer mon compte"
+                android:textStyle="bold"
+                android:textColor="@color/red_300"
+                android:layout_marginTop="12dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
