@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/image_menu"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/menu1" />
+
+    <TextView
+        android:id="@+id/nom_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/image_menu"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_alignParentTop="true"
+        android:text="Nom du menu"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/prix_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/image_menu"
+        android:layout_below="@+id/nom_menu"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Prix"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/desciption_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/prix_menu"
+        android:layout_alignBottom="@+id/prix_menu"
+        android:layout_marginStart="8dp"
+        android:text="description"
+        android:textSize="16sp" />
+
+</RelativeLayout>
