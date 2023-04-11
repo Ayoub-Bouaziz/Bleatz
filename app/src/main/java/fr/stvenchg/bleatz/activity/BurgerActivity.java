@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class BurgerActivity extends AppCompatActivity {
     private DetailsBurgerResponse.Burger burger;
     private TextView burgerNameView, burgerPriceView, burgerDescriptionView;
     private ImageView burgerImageView;
+    private Button ajouterAuPanier;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,6 +65,22 @@ public class BurgerActivity extends AppCompatActivity {
         fetchContent();
 
         recyclerView.setAdapter(ingredientAdapter);
+
+        ajouterAuPanier = findViewById(R.id.btn_add_to_cart);
+
+        ajouterAuPanier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(BurgerActivity.this, BoissonActivity.class);
+                intent.putExtra("burger_id", burger.getIdBurger());
+                BurgerActivity.this.startActivity(intent);
+
+
+            }
+        });
+
 
 
 

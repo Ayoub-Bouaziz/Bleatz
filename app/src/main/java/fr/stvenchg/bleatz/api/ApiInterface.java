@@ -3,6 +3,7 @@ package fr.stvenchg.bleatz.api;
 import java.util.List;
 
 import fr.stvenchg.bleatz.api.account.AccountResponse;
+import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
 import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
@@ -41,6 +42,8 @@ public interface ApiInterface {
     Call<List<InclurePanierResponse>> getInclurePanier(@Header("Authorization") String accessToken);
     @GET("products/burger")
     Call<BurgerResponse> getBurgers();
+    @GET("products/boisson")
+    Call<BoissonResponse> getBoissons();
     @GET("products/burger")
     Call<DetailsBurgerResponse> getBurgersDetails(@Query("id") int idBurger);
     @GET("products/menu")
