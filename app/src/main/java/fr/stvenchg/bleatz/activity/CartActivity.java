@@ -20,6 +20,7 @@ import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 
 import fr.stvenchg.bleatz.api.AuthenticationManager;
+import fr.stvenchg.bleatz.api.CartResponseWrapper;
 import fr.stvenchg.bleatz.api.panier.CartResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,21 +48,23 @@ public class CartActivity extends AppCompatActivity {
         // Récupération du panier depuis l'API
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         System.out.println("------------3-----------------------------------------");
-        Call<List<CartResponse>> callCart = apiInterface.getCart("Bearer " + accessToken);
-        System.out.println("----------------------4-------------------------------");
-        callCart.enqueue(new Callback<List<CartResponse>>() {
+        Call<CartResponseWrapper> callCart = apiInterface.getCart("Bearer " + accessToken);
+        callCart.enqueue(new Callback<CartResponseWrapper>() {
             @Override
-            public void onResponse(Call<List<CartResponse>> call, Response<List<CartResponse>> response) {
+            public void onResponse(Call<CartResponseWrapper> call, Response<CartResponseWrapper> response) {
                 System.out.println("-----------------5------------------------------------");
                 System.out.println(response);
                 if (response.isSuccessful()) {
                     System.out.println("----------------6-------------------------------------");
-                    List<CartResponse> cartList = response.body();
+                    CartResponseWrapper cartWrapper = response.body();
+                    List<CartResponse> cartList = cartWrapper.getContent();
                     List<CartResponse.MenuItem> menuItems = new ArrayList<>();
                     for (CartResponse cart : cartList) {
                         for (CartResponse.MenuContent menuContent : cart.getContent()) {
-                            for (CartResponse.MenuItem menuItem : menuContent.getContent()) {
-                                menuItems.add(menuItem);
+                            if (menuContent.getContent() != null) {
+                                for (CartResponse.MenuItem menuItem : menuContent.getContent()) {
+                                    menuItems.add(menuItem);
+                                }
                             }
                         }
                     }
@@ -71,10 +74,7 @@ public class CartActivity extends AppCompatActivity {
                     listViewCart.setAdapter(adapter);
 
                     // Calcul et affichage du prix total du panier
-                    double total = 0;
-                    for (CartResponse cart : cartList) {
-                        total += cart.getTotal_price();
-                    }
+                    double total = cartWrapper.getTotal_price();
                     totalPrice.setText("Total : " + total + "€");
 
                 } else {
@@ -83,50 +83,15 @@ public class CartActivity extends AppCompatActivity {
                 }
 
             }
+
             @Override
-            public void onFailure(Call<List<CartResponse>> call, Throwable t) {
+            public void onFailure(Call<CartResponseWrapper> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
                 System.out.println("----------------erreur2-------------------------------------");
             }
+
         });
-/*
-        // Configuration du bouton de commande
-        btnCommander.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Vérification de l'authentification de l'utilisateur
-                if (!authenticationManager.isUserAuthenticated()) {
-                    Toast.makeText(CartActivity.this, "Vous devez vous connecter pour commander", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CartActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    return;
-                }
-
-                // Récupération des menus dans le panier
-                List<Menu> menus = new ArrayList<>();
-                for (int i = 0; i < listViewCart.getCount(); i++) {
-                    View view = listViewCart.getChildAt(i);
-
-                    CartResponse cart = (CartResponse) listViewCart.getItemAtPosition(i);
-                    Menu menu = cart.getM;
-
-                    menus.add(menu);
-                }
-
-                // Envoi de la commande à l'API
-                Call<OrderResponse> callOrder = apiInterface.createOrder("Bearer " + accessToken, new OrderRequest(menus));
-                callOrder.enqueue(new Callback<OrderResponse>() {
-                    @Override
-                    public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(CartActivity.this, "Commande envoyée avec succès", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CartActivity.this, OrderDetailsActivity.class);
-                            intent.putExtra("orderId", response.body().getId());
-                            startActivity(intent
-
-            }
-        });
-*/
     }
 }
 
