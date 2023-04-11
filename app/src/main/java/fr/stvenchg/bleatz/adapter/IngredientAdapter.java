@@ -62,7 +62,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         }
 
         public void bind(OrderContentResponse.CommandeContent.Burger.Ingredient ingredient) {
-            ingredientNameTextView.setText(ingredient.getNom());
+            ingredientNameTextView.setText("x1 " + ingredient.getNom());
         }
 
     }

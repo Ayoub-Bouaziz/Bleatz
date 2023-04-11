@@ -2,13 +2,16 @@ package fr.stvenchg.bleatz.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,13 +65,20 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
         private RecyclerView ingredientsRecyclerView;
         private IngredientAdapter ingredientAdapter;
 
+        private LinearLayout ingredientsDropdownLayout;
+
+        private ImageView dropdownIcon;
+
         public ContentViewHolder(@NonNull View itemView) {
             super(itemView);
             contentIdTextView = itemView.findViewById(R.id.content_id_text_view);
             boissonTextView = itemView.findViewById(R.id.boisson_text_view);
             burgerTextView = itemView.findViewById(R.id.burger_text_view);
             burgerImageView = itemView.findViewById(R.id.burger_image_view);
-
+            ingredientsDropdownLayout = itemView.findViewById(R.id.contentorder_linearlayout_dropdown);
+            dropdownIcon = itemView.findViewById(R.id.dropdown_icon);
+            Drawable arrowUpDropdown = ContextCompat.getDrawable(context, R.drawable.ic_arrow_up);
+            Drawable arrowDownDropdown = ContextCompat.getDrawable(context, R.drawable.ic_arrow_down);
 
             ingredientsRecyclerView = itemView.findViewById(R.id.ingredients_recycler_view);
             ingredientsRecyclerView.setHasFixedSize(true);
@@ -77,17 +87,29 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
             ingredientAdapter = new IngredientAdapter(new ArrayList<>());
 
 
+            ingredientsDropdownLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ingredientsRecyclerView.getVisibility() == View.GONE) {
+                        ingredientsRecyclerView.setVisibility(View.VISIBLE);
+                        dropdownIcon.setImageDrawable(arrowUpDropdown);
 
+                    } else {
+                        ingredientsRecyclerView.setVisibility(View.GONE);
+                        dropdownIcon.setImageDrawable(arrowDownDropdown);
+                    }
+                }
+            });
 
         }
 
         public void bind(OrderContentResponse.CommandeContent content) {
             contentIdTextView.setText("Menu " + String.valueOf(content.getIdMenu()));
-            boissonTextView.setText("Boisson: " + String.valueOf(content.getBoissons().get(0).getNom()));
-            burgerTextView.setText("Burger: " + String.valueOf(content.getBurgers().get(0).getNom()));
+            boissonTextView.setText("Boisson : " + String.valueOf(content.getBoissons().get(0).getNom()));
+            burgerTextView.setText("Burger : " + String.valueOf(content.getBurgers().get(0).getNom()));
             Glide.with(context)
                     .load("https://api.stevenching.fr/bleatz/img/burger/" + content.getBurgers().get(0).getImage())
-                    .override(300,300)
+                    .override(200,200)
                     .into(burgerImageView);
 
 

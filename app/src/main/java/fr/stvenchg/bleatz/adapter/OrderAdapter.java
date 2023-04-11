@@ -1,5 +1,6 @@
 package fr.stvenchg.bleatz.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -42,7 +43,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             public void onClick(View view) {
                 Intent intent = new Intent(context, OrderActivity.class);
                 intent.putExtra("order_id", order.getIdCommande());
+                intent.putExtra("order_statut", order.getStatut());
+                intent.putExtra("order_date", order.getDateCommande());
+                intent.putExtra("order_user_id", order.getIdUser());
                 context.startActivity(intent);
+                if (context instanceof Activity) {
+                    ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
         });
 
