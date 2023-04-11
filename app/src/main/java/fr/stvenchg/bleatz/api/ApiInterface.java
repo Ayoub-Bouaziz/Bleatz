@@ -3,6 +3,7 @@ package fr.stvenchg.bleatz.api;
 import fr.stvenchg.bleatz.api.account.AccountResponse;
 import fr.stvenchg.bleatz.api.kitchen.KitchenResponse;
 import fr.stvenchg.bleatz.api.kitchen.OrderContentResponse;
+import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 import fr.stvenchg.bleatz.api.phone.send.PhoneSendRequest;
@@ -41,4 +42,6 @@ public interface ApiInterface {
     @POST("phone/verify")
     Call<PhoneVerifyResponse> verifyPhoneCode(@Header("Authorization") String accessToken, @Body PhoneVerifyRequest phoneVerifyRequest);
 
+    @GET("kitchen/validate-order")
+    Call<ValidateOrderResponse> validateOrder(@Header("Authorization") String accessToken, @Query("id") int idOrder);
 }
