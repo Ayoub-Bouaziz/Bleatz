@@ -1,8 +1,8 @@
 package fr.stvenchg.bleatz.api;
 
 import java.util.List;
-
 import fr.stvenchg.bleatz.api.panier.CartResponse;
+import fr.stvenchg.bleatz.api.panier.CartResponse.MenuContent;
 
 public class CartResponseWrapper {
     private boolean success;
@@ -10,7 +10,7 @@ public class CartResponseWrapper {
     private int idPanier;
     private double total_price;
     private int menu_count;
-    private List<CartResponse> content;
+    private List<MenuContent> content;
 
     // Getters
     public boolean isSuccess() {
@@ -33,7 +33,7 @@ public class CartResponseWrapper {
         return menu_count;
     }
 
-    public List<CartResponse> getContent() {
+    public List<MenuContent> getContent() {
         return content;
     }
 
@@ -58,7 +58,7 @@ public class CartResponseWrapper {
         this.menu_count = menu_count;
     }
 
-    public void setContent(List<CartResponse> content) {
+    public void setContent(List<MenuContent> content) {
         this.content = content;
     }
 }

@@ -23,7 +23,6 @@ public class CartListAdapter extends BaseAdapter {
         public CartListAdapter(List<CartResponse.MenuItem> menuItems) {
             this.menuItems = menuItems;
         }
-
         @Override
         public int getCount() {
             return menuItems.size();
@@ -49,14 +48,13 @@ public class CartListAdapter extends BaseAdapter {
 
             TextView tvMenuItemName = convertView.findViewById(R.id.nom_menu);
             TextView tvMenuItemPrice = convertView.findViewById(R.id.prix_menu);
-            TextView tvMenuItemdescription = convertView.findViewById(R.id.desciption_menu);
             ImageView tvMenuItemImage= convertView.findViewById(R.id.image_menu);
 
             tvMenuItemName.setText(menuItem.getBurger().getNom());
             tvMenuItemPrice.setText(menuItem.getPrix()+"$");
-            tvMenuItemdescription.setText(menuItem.getBurger().getDescription());
+
             Picasso.get()
-                    .load(menuItem.getBurger().getImage())
+                    .load("https://api.stevenching.fr/bleatz/img/burger/" + menuItem.getBurger().getImage())
                     .into(tvMenuItemImage);
 
 

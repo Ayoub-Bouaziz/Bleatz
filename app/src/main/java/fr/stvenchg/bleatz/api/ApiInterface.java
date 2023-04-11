@@ -42,7 +42,7 @@ public interface ApiInterface {
     @POST("phone/verify")
     Call<PhoneVerifyResponse> verifyPhoneCode(@Header("Authorization") String accessToken, @Body PhoneVerifyRequest phoneVerifyRequest);
     @GET("cart")
-    Call<CartResponseWrapper> getCart(@Header("Authorization") String token);
+    Call<CartResponse> getCart(@Header("Authorization") String token);
     @DELETE("cart")
     Call<List<CartResponse>> clearCart(@Header("Authorization") String accessToken);
     @POST("cart")

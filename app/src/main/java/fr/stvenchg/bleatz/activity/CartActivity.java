@@ -40,31 +40,25 @@ public class CartActivity extends AppCompatActivity {
         listViewCart = findViewById(R.id.list_articles);
         btnCommander = findViewById(R.id.btn_commander);
         totalPrice = findViewById(R.id.txt_total);
-        System.out.println("-----------1------------------------------------------");
+
         // Récupération du token d'authentification depuis les préférences partagées
         AuthenticationManager authenticationManager = new AuthenticationManager(this);
         String accessToken = authenticationManager.getAccessToken();
-        System.out.println("--------------2---------------------------------------");
+
         // Récupération du panier depuis l'API
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        System.out.println("------------3-----------------------------------------");
-        Call<CartResponseWrapper> callCart = apiInterface.getCart("Bearer " + accessToken);
-        callCart.enqueue(new Callback<CartResponseWrapper>() {
+        Call<CartResponse> callCart = apiInterface.getCart("Bearer " + accessToken);
+        callCart.enqueue(new Callback<CartResponse>() {
             @Override
-            public void onResponse(Call<CartResponseWrapper> call, Response<CartResponseWrapper> response) {
-                System.out.println("-----------------5------------------------------------");
-                System.out.println(response);
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("----------------6-------------------------------------");
-                    CartResponseWrapper cartWrapper = response.body();
-                    List<CartResponse> cartList = cartWrapper.getContent();
+                    CartResponse cart = response.body();
                     List<CartResponse.MenuItem> menuItems = new ArrayList<>();
-                    for (CartResponse cart : cartList) {
-                        for (CartResponse.MenuContent menuContent : cart.getContent()) {
-                            if (menuContent.getContent() != null) {
-                                for (CartResponse.MenuItem menuItem : menuContent.getContent()) {
-                                    menuItems.add(menuItem);
-                                }
+
+                    for (CartResponse.MenuContent menuContent : cart.getContent()) {
+                        if (menuContent.getContent() != null) {
+                            for (CartResponse.MenuItem menuItem : menuContent.getContent()) {
+                                menuItems.add(menuItem);
                             }
                         }
                     }
@@ -74,23 +68,19 @@ public class CartActivity extends AppCompatActivity {
                     listViewCart.setAdapter(adapter);
 
                     // Calcul et affichage du prix total du panier
-                    double total = cartWrapper.getTotal_price();
+                    double total = cart.getTotal_price();
                     totalPrice.setText("Total : " + total + "€");
 
                 } else {
                     Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
-                    System.out.println("----------------erreur-------------------------------------");
                 }
-
             }
 
             @Override
-            public void onFailure(Call<CartResponseWrapper> call, Throwable t) {
+            public void onFailure(Call<CartResponse> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
-                System.out.println("----------------erreur2-------------------------------------");
             }
-
         });
     }
 }

@@ -33,15 +33,4 @@
         android:layout_marginTop="8dp"
         android:text="Prix"
         android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/desciption_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/prix_menu"
-        android:layout_alignBottom="@+id/prix_menu"
-        android:layout_marginStart="8dp"
-        android:text="description"
-        android:textSize="16sp" />
-
 </RelativeLayout>
