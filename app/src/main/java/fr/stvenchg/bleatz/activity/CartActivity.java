@@ -69,7 +69,7 @@ public class CartActivity extends AppCompatActivity {
 
                     // Calcul et affichage du prix total du panier
                     double total = cart.getTotal_price();
-                    totalPrice.setText("Total : " + total + "€");
+                    totalPrice.setText("Total : " + total + " €");
 
                 } else {
                     Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
