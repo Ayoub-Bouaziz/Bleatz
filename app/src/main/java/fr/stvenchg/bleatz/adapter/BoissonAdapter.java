@@ -13,8 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import java.util.List;
 import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.api.ApiClient;
+import fr.stvenchg.bleatz.api.ApiInterface;
+import fr.stvenchg.bleatz.api.AuthenticationManager;
 import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
 import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonViewHolder>  {
 
@@ -53,17 +59,38 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Intent intent = new Intent(context, BurgerActivity.class);
-                intent.putExtra("boisson_id", boisson.getIdBoisson());
-                context.startActivity(intent);
 
-                 */
+                AuthenticationManager authenticationManager = new AuthenticationManager(context);
+                String accessToken = authenticationManager.getAccessToken();
+
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                retrofit2.Call<CreateMenuResponse> call = apiInterface.createMenu("Bearer " + accessToken,idBurger, boisson.getIdBoisson());
+
+                call.enqueue(new Callback<CreateMenuResponse>() {
+                    @Override
+                    public void onResponse(Call<CreateMenuResponse> call, Response<CreateMenuResponse> response) {
+
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CreateMenuResponse> call, Throwable t) {
+
+                    }
+
+
+                });
+
+
+
+
 
             }
         });
 
     }
+
 
     @Override
     public int getItemCount() {
