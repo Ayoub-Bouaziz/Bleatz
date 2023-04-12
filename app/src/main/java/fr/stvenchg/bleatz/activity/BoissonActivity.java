@@ -13,11 +13,9 @@ import java.util.List;
 
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.adapter.BoissonAdapter;
-import fr.stvenchg.bleatz.adapter.BurgerAdapter;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
-import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

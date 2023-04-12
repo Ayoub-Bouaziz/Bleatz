@@ -18,11 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.stvenchg.bleatz.R;
-import fr.stvenchg.bleatz.adapter.BurgerAdapter;
 import fr.stvenchg.bleatz.adapter.BurgerIngredientsAdapter;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
-import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 import retrofit2.Call;
 import retrofit2.Callback;

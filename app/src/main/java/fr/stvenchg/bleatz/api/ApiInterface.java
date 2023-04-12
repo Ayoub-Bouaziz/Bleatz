@@ -51,16 +51,12 @@ public interface ApiInterface {
 
     @POST("phone/verify")
     Call<PhoneVerifyResponse> verifyPhoneCode(@Header("Authorization") String accessToken, @Body PhoneVerifyRequest phoneVerifyRequest);
-    @GET("inclurepanier")
-    Call<List<InclurePanierResponse>> getInclurePanier(@Header("Authorization") String accessToken);
     @GET("products/burger")
     Call<BurgerResponse> getBurgers();
     @GET("products/boisson")
     Call<BoissonResponse> getBoissons();
     @GET("products/burger")
     Call<DetailsBurgerResponse> getBurgersDetails(@Query("id") int idBurger);
-    @GET("products/menu")
-    Call<List<MenuResponse>> getMenus(@Header("Authorization") String accessToken);
     @GET("cart")
     Call<CartResponse> getCart(@Header("Authorization") String token);
     @DELETE("cart")
@@ -69,10 +65,8 @@ public interface ApiInterface {
     Call<AddToCartResponse> addToCart(@Header("Authorization") String accessToken, @Body AddToCartRequest addToCartRequest);
     @POST("menu/create")
     Call<CreateMenuResponse> createMenu(@Header("Authorization") String accessToken, @Query("idBurger") int burgerId, @Query("idBoisson") int boissonId);
-
     @DELETE("cart")
     Call<DeleteFromCartResponse> deleteFromCart(@Header("Authorization") String accessToken, @Query("idMenu") int menuId);
-
     @POST("set")
     Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);
 
