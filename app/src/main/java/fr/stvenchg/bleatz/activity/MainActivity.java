@@ -9,9 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import fr.stvenchg.bleatz.EmailVerificationCallback;
 import fr.stvenchg.bleatz.fragment.AccountFragment;
+
 import fr.stvenchg.bleatz.fragment.BurgerMenuFragment;
 import fr.stvenchg.bleatz.fragment.HomeFragment;
 import fr.stvenchg.bleatz.R;
@@ -33,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -93,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    public void openCartActivity(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
     }
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {
