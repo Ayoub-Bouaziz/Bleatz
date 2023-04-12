@@ -44,6 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Commander"
+        android:background="@color/orange_300"
+        android:textColor="@color/white"
         android:layout_alignParentBottom="true"/>
 
 
