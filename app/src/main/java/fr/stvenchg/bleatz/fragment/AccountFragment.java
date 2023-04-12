@@ -25,6 +25,7 @@ import fr.stvenchg.bleatz.SettingsItem;
 import fr.stvenchg.bleatz.activity.AccountInfosActivity;
 import fr.stvenchg.bleatz.activity.AuthActivity;
 import fr.stvenchg.bleatz.activity.RegisterActivity;
+import fr.stvenchg.bleatz.activity.UserOrderActivity;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
@@ -92,7 +93,9 @@ public class AccountFragment extends Fragment {
         settingsItems.add(new SettingsItem(R.drawable.ic_fastfood, "Mes commandes", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Action
+                Intent intent = new Intent(requireActivity(), UserOrderActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }));
 
