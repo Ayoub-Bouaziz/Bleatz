@@ -49,12 +49,16 @@ public class CartListAdapter extends BaseAdapter {
 
             CartResponse.MenuItem menuItem = menuItems.get(position);
 
-            TextView tvMenuItemName = convertView.findViewById(R.id.nom_menu);
+            TextView tvMenuItemNameBurger = convertView.findViewById(R.id.nom_menu);
             TextView tvMenuItemPrice = convertView.findViewById(R.id.prix_menu);
             ImageView tvMenuItemImage= convertView.findViewById(R.id.image_menu);
+            TextView tvMenuItemNameBoisson = convertView.findViewById(R.id.nom_Boisson);
 
-            tvMenuItemName.setText(menuItem.getBurger().getNom());
-            tvMenuItemPrice.setText(menuItem.getPrix()+"€");
+
+            tvMenuItemNameBurger.setText(menuItem.getBurger().getNom());
+            tvMenuItemNameBoisson.setText(menuItem.getBoisson().getNom());
+
+            tvMenuItemPrice.setText(menuItem.getPrix()+"0 €");
 
             Picasso.get()
                     .load("https://api.stevenching.fr/bleatz/img/burger/" + menuItem.getBurger().getImage())

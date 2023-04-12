@@ -177,19 +177,11 @@ public class CartResponse {
         }
     }
 
-    class Boisson {
+    public class Boisson {
         private int idBoisson;
         private String nom;
         private double prix;
         private String taille;
-
-        // Constructeur
-        public Boisson(int idBoisson, String nom, double prix, String taille) {
-            this.idBoisson = idBoisson;
-            this.nom = nom;
-            this.prix = prix;
-            this.taille = taille;
-        }
 
         // Getters
         public int getIdBoisson() {
