@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,8 +70,11 @@ public class CartActivity extends AppCompatActivity {
                     listViewCart.setAdapter(adapter);
 
                     // Calcul et affichage du prix total du panier
+
                     double total = cart.getTotal_price();
-                    totalPrice.setText("Total : " + total + " €");
+                    NumberFormat formatter = new DecimalFormat("#0.00");
+                    String formattedPrice = formatter.format(total);
+                    totalPrice.setText("Total : " + formattedPrice + " €");
 
                 } else {
                     Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();

@@ -38,7 +38,11 @@ public class CreateMenuResponse {
             return idBurger;
         }
 
-        public int getIdBoisson() {
+    public void setIdMenu(int idMenu) {
+        this.idMenu = idMenu;
+    }
+
+    public int getIdBoisson() {
             return idBoisson;
         }
 

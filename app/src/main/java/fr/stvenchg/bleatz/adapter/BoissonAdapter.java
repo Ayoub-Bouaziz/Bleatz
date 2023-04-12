@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import java.util.List;
 import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.activity.CartActivity;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
 import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
+import fr.stvenchg.bleatz.api.panier.AddToCartResponse;
 import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,14 +72,20 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
                 call.enqueue(new Callback<CreateMenuResponse>() {
                     @Override
                     public void onResponse(Call<CreateMenuResponse> call, Response<CreateMenuResponse> response) {
+                        if (response.isSuccessful()) {
 
+                            CreateMenuResponse menuResponse = new CreateMenuResponse();
+                            menuResponse = response.body();
+                            AddCart(menuResponse.getIdMenu());
 
-
+                        } else {
+                            Toast.makeText(context, "Impossible de récupérer le menu", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<CreateMenuResponse> call, Throwable t) {
-
+                        System.out.println("------------------ee-----------");
                     }
 
 
@@ -91,6 +100,31 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
 
     }
 
+    private void AddCart(int idMenu){
+        AuthenticationManager authenticationManager = new AuthenticationManager(context);
+        String accessToken = authenticationManager.getAccessToken();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        retrofit2.Call<AddToCartResponse> call = apiInterface.addToCart("Bearer " + accessToken, idMenu);
+
+        call.enqueue(new Callback<AddToCartResponse>() {
+            @Override
+            public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
+                if (response.isSuccessful()) {
+                    AddToCartResponse addToCartResponse = response.body();
+
+                    Toast.makeText(context, "Menu ajouté a votre Panier ", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(context, CartActivity.class);
+                    context.startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddToCartResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {

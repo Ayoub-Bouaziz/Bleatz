@@ -13,7 +13,6 @@ import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 
-import fr.stvenchg.bleatz.api.panier.AddToCartRequest;
 import fr.stvenchg.bleatz.api.panier.AddToCartResponse;
 import fr.stvenchg.bleatz.api.panier.CartResponse;
 import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
@@ -70,9 +69,9 @@ public interface ApiInterface {
     Call<CartResponse> getCart(@Header("Authorization") String token);
     @DELETE("cart")
     Call<List<CartResponse>> clearCart(@Header("Authorization") String accessToken);
-    @POST("cart")
-    Call<AddToCartResponse> addToCart(@Header("Authorization") String accessToken, @Body AddToCartRequest addToCartRequest);
-    @POST("menu/create")
+    @GET("cart")
+    Call<AddToCartResponse> addToCart(@Header("Authorization") String accessToken, @Query("add") int idMenu);
+    @GET("menu/create")
     Call<CreateMenuResponse> createMenu(@Header("Authorization") String accessToken, @Query("idBurger") int burgerId, @Query("idBoisson") int boissonId);
     @DELETE("cart")
     Call<DeleteFromCartResponse> deleteFromCart(@Header("Authorization") String accessToken, @Query("idMenu") int menuId);
