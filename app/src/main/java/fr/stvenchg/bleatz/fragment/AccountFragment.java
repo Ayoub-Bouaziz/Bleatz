@@ -28,10 +28,8 @@ import fr.stvenchg.bleatz.activity.RegisterActivity;
 import fr.stvenchg.bleatz.activity.UserOrderActivity;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
+import fr.stvenchg.bleatz.activity.KitchenActivity;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
-import fr.stvenchg.bleatz.api.account.AccountResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +42,7 @@ public class AccountFragment extends Fragment {
     private TextView bonjourTextView;
 
     private String firstname;
+    private String role;
 
     private String lastname;
 
@@ -51,11 +50,12 @@ public class AccountFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static AccountFragment newInstance(String firstname, String lastname) {
+    public static AccountFragment newInstance(String firstname, String lastname, String role) {
         AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
         args.putString("firstname", firstname);
         args.putString("lastname", lastname);
+        args.putString("role", role);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,6 +66,7 @@ public class AccountFragment extends Fragment {
         if (getArguments() != null) {
             firstname = getArguments().getString("firstname");
             lastname = getArguments().getString("lastname");
+            role = getArguments().getString("role");
         }
 
         authenticationManager = new AuthenticationManager(requireActivity());
@@ -142,14 +143,28 @@ public class AccountFragment extends Fragment {
                 }
             }});
 
-        /*
+
         Button cuisineButton = view.findViewById(R.id.faccount_button_cuisine);
-        if (utilisateur.getRole().equals("cuisine")) {
+        if (role.equals("cuisine")) {
             cuisineButton.setVisibility(View.VISIBLE);
+
+
+            cuisineButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Créer un Intent pour naviguer vers Activity2
+                    Intent intent = new Intent(getActivity(), KitchenActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         } else {
             cuisineButton.setVisibility(View.GONE);
         }
-        */
+
+
+
+
 
 
 

@@ -7,6 +7,9 @@ import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
 import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 
+import fr.stvenchg.bleatz.api.kitchen.KitchenResponse;
+import fr.stvenchg.bleatz.api.kitchen.OrderContentResponse;
+import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 
@@ -46,6 +49,12 @@ public interface ApiInterface {
     @GET("account")
     Call<AccountResponse> getAccount(@Header("Authorization") String accessToken);
 
+    @GET("kitchen/orders")
+    Call<KitchenResponse> getKitchenOrders(@Header("Authorization") String accessToken);
+
+    @GET("kitchen/order-content")
+    Call<OrderContentResponse> getOrderContent(@Header("Authorization") String accessToken, @Query("id") int idOrder);
+
     @POST("phone/send")
     Call<PhoneSendResponse> sendPhoneCode(@Header("Authorization") String accessToken, @Body PhoneSendRequest phoneSendRequest);
 
@@ -70,4 +79,6 @@ public interface ApiInterface {
     @POST("set")
     Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);
 
+    @GET("kitchen/validate-order")
+    Call<ValidateOrderResponse> validateOrder(@Header("Authorization") String accessToken, @Query("id") int idOrder);
 }

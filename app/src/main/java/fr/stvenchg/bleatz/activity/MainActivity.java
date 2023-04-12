@@ -78,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
         binding.navItemAccount.setOnClickListener(v -> {
             String firstname = authenticationManager.getFirstname();
             String lastname = authenticationManager.getLastname();
+            String role = authenticationManager.getRole();
 
             if (firstname != null) {
-                replaceFragment(AccountFragment.newInstance(firstname, lastname), R.id.nav_item_account);
+                replaceFragment(AccountFragment.newInstance(firstname, lastname, role), R.id.nav_item_account);
             } else {
                 replaceFragment(new AccountFragment(), R.id.nav_item_account);
             }
@@ -217,7 +218,8 @@ public class MainActivity extends AppCompatActivity {
                                     accountResponse.getPhone(),
                                     accountResponse.getCreationDate(),
                                     accountResponse.getAddress()
-                                    );
+                                    accountResponse.getRole()
+                            );
 
                             String firstname = accountResponse.getFirstname();
                             String address = accountResponse.getAddress();

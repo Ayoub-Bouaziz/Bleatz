@@ -23,6 +23,8 @@ public class AuthenticationManager {
 
     private SharedPreferences sharedPreferences;
 
+    private static final String ROLE = "role";
+
     public AuthenticationManager(Context context) {
         sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
     }
@@ -35,7 +37,7 @@ public class AuthenticationManager {
                 .apply();
     }
 
-    public void saveUserDetails(String idUser, String firstname, String lastname, String email, String phone, String creation_date, String address) {
+    public void saveUserDetails(String idUser, String firstname, String lastname, String email, String phone, String creation_date, String address, String role) {
         sharedPreferences.edit()
                 .putString(USER_ID, idUser)
                 .putString(FIRSTNAME, firstname)
@@ -44,6 +46,7 @@ public class AuthenticationManager {
                 .putString(PHONE, phone)
                 .putString(CREATION_DATE, creation_date)
                 .putString(ADDRESS, address)
+                .putString(ROLE, role)
                 .apply();
     }
 
@@ -66,6 +69,8 @@ public class AuthenticationManager {
     public String getFirstname() {
         return sharedPreferences.getString(FIRSTNAME, null);
     }
+
+
     public String getLastname() {
         return sharedPreferences.getString(LASTNAME, null);
     }
@@ -100,6 +105,10 @@ public class AuthenticationManager {
                 .apply();
     }
 
+    public String getRole() {
+        return sharedPreferences.getString(ROLE, null);
+    }
+
     public void clearTokens() {
         sharedPreferences.edit()
                 .remove(ACCESS_TOKEN_KEY)
@@ -111,6 +120,7 @@ public class AuthenticationManager {
                 .remove(PHONE)
                 .remove(CREATION_DATE)
                 .remove(ADDRESS)
+                .remove(ROLE)
                 .apply();
     }
 }
