@@ -6,10 +6,15 @@ import fr.stvenchg.bleatz.api.account.AccountResponse;
 import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
 import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
+
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
-import fr.stvenchg.bleatz.api.menu.MenuResponse;
-import fr.stvenchg.bleatz.api.panier.InclurePanierResponse;
+
+import fr.stvenchg.bleatz.api.panier.AddToCartRequest;
+import fr.stvenchg.bleatz.api.panier.AddToCartResponse;
+import fr.stvenchg.bleatz.api.panier.CartResponse;
+import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
+import fr.stvenchg.bleatz.api.panier.DeleteFromCartResponse;
 import fr.stvenchg.bleatz.api.phone.send.PhoneSendRequest;
 import fr.stvenchg.bleatz.api.phone.send.PhoneSendResponse;
 import fr.stvenchg.bleatz.api.phone.verify.PhoneVerifyRequest;
@@ -22,6 +27,7 @@ import fr.stvenchg.bleatz.api.set.SetRequest;
 import fr.stvenchg.bleatz.api.set.SetResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -55,8 +61,17 @@ public interface ApiInterface {
     Call<DetailsBurgerResponse> getBurgersDetails(@Query("id") int idBurger);
     @GET("products/menu")
     Call<List<MenuResponse>> getMenus(@Header("Authorization") String accessToken);
+    @GET("cart")
+    Call<CartResponse> getCart(@Header("Authorization") String token);
+    @DELETE("cart")
+    Call<List<CartResponse>> clearCart(@Header("Authorization") String accessToken);
+    @POST("cart")
+    Call<AddToCartResponse> addToCart(@Header("Authorization") String accessToken, @Body AddToCartRequest addToCartRequest);
+    @POST("menu/create")
+    Call<CreateMenuResponse> createMenu(@Header("Authorization") String accessToken, @Query("idBurger") int burgerId, @Query("idBoisson") int boissonId);
 
-
+    @DELETE("cart")
+    Call<DeleteFromCartResponse> deleteFromCart(@Header("Authorization") String accessToken, @Query("idMenu") int menuId);
 
     @POST("set")
     Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);

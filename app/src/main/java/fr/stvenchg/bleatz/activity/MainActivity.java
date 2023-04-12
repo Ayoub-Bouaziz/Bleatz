@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -102,10 +104,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
-    public void openCartActivity(View view) {
-        Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
-    }
+
 
     private void replaceFragment(Fragment fragment, int selectedIconId) {
         updateSelectedIcon(selectedIconId);
@@ -150,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void openCartActivity(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
     private void checkPhoneVerified() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<AccountResponse> call = apiInterface.getAccount("Bearer " + authenticationManager.getAccessToken());
