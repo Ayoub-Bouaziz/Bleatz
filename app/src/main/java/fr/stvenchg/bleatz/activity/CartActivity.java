@@ -2,6 +2,7 @@ package fr.stvenchg.bleatz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,8 @@ public class CartActivity extends AppCompatActivity {
     private ListView listViewCart;
     private Button btnCommander;
     private TextView totalPrice;
+    private Handler handler = new Handler();
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,26 @@ public class CartActivity extends AppCompatActivity {
         listViewCart = findViewById(R.id.list_articles);
         btnCommander = findViewById(R.id.btn_commander);
         totalPrice = findViewById(R.id.txt_total);
+        fetchCart();
 
+        // Répétition de l'appel à fetchCart toutes les secondes
+        runnable = new Runnable() {
+            public void run() {
+                fetchCart();
+                handler.postDelayed(this, 5000);
+            }
+        };
+        handler.postDelayed(runnable, 5000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Arrêt de la répétition de l'appel à fetchCart lorsque l'activité est détruite
+        handler.removeCallbacks(runnable);
+    }
+
+    private void fetchCart(){
         // Récupération du token d'authentification depuis les préférences partagées
         AuthenticationManager authenticationManager = new AuthenticationManager(this);
         String accessToken = authenticationManager.getAccessToken();
@@ -55,18 +77,15 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 if (response.isSuccessful()) {
                     CartResponse cart = response.body();
-                    List<CartResponse.MenuItem> menuItems = new ArrayList<>();
+                    List<CartResponse.MenuContent> menuContents = new ArrayList<>() ;
 
                     for (CartResponse.MenuContent menuContent : cart.getContent()) {
-                        if (menuContent.getContent() != null) {
-                            for (CartResponse.MenuItem menuItem : menuContent.getContent()) {
-                                menuItems.add(menuItem);
-                            }
-                        }
+                        menuContents.add(menuContent);
                     }
 
                     // Affichage des menus du panier dans la liste
-                    CartListAdapter adapter = new CartListAdapter(menuItems);
+                    CartListAdapter adapter = new CartListAdapter(menuContents,CartActivity.this);
+                    adapter.notifyDataSetChanged();
                     listViewCart.setAdapter(adapter);
 
                     // Calcul et affichage du prix total du panier
@@ -78,9 +97,7 @@ public class CartActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
-
                 }
-
             }
 
             @Override
@@ -89,7 +106,6 @@ public class CartActivity extends AppCompatActivity {
                 t.printStackTrace();
                 System.out.println("----------------erreur2-------------------------------------");
             }
-
         });
     }
 }
