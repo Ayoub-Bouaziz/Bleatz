@@ -18,7 +18,6 @@ public class AccountResponse {
 
     private String role;
     private boolean success;
-    private String role;
 
     public boolean isSuccess() {
         return success;
