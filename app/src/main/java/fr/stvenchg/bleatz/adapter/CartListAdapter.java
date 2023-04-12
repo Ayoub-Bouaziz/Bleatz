@@ -22,6 +22,8 @@ public class CartListAdapter extends BaseAdapter {
 
         public CartListAdapter(List<CartResponse.MenuItem> menuItems) {
             this.menuItems = menuItems;
+
+            System.out.println("----------------1-------------------------------------");
         }
         @Override
         public int getCount() {
@@ -43,6 +45,7 @@ public class CartListAdapter extends BaseAdapter {
             if (convertView == null) {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cart, parent, false);
             }
+            System.out.println("----------------2-------------------------------------");
 
             CartResponse.MenuItem menuItem = menuItems.get(position);
 

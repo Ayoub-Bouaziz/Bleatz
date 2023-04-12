@@ -14,15 +14,18 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
+import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
 
 public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonViewHolder>  {
 
     private List<BoissonResponse.Boisson> boissons;
+    private int idBurger ;
     private static Context context;
 
-    public BoissonAdapter(List<BoissonResponse.Boisson> boissons, Context context) {
+    public BoissonAdapter(List<BoissonResponse.Boisson> boissons,int idBurger, Context context) {
         this.context = context;
         this.boissons = boissons;
+        this.idBurger =idBurger ;
     }
 
 
@@ -56,6 +59,7 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
                 context.startActivity(intent);
 
                  */
+
             }
         });
 

@@ -73,14 +73,18 @@ public class CartActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
+
                 }
+
             }
 
             @Override
             public void onFailure(Call<CartResponse> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
+                System.out.println("----------------erreur2-------------------------------------");
             }
+
         });
     }
 }

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ public class BoissonActivity extends AppCompatActivity {
 
     private BoissonResponse boissonResponse;
 
+    private int idBurger ;
+
     private List<BoissonResponse.Boisson> boissons;
     private BoissonAdapter adapter;
 
@@ -39,10 +42,13 @@ public class BoissonActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        Intent intent = getIntent();
+        idBurger = intent.getIntExtra("burger_id", 0);
+
         boissonResponse = new BoissonResponse();
         boissons = new ArrayList<>();
 
-        adapter = new BoissonAdapter(boissons,this);
+        adapter = new BoissonAdapter(boissons,idBurger, this);
 
         fetchBoissons();
         recyclerView.setAdapter(adapter);
