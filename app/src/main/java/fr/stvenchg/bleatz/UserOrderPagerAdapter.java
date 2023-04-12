@@ -10,6 +10,9 @@ import fr.stvenchg.bleatz.fragment.ProcessingOrdersFragment;
 
 public class UserOrderPagerAdapter extends FragmentStateAdapter {
 
+    private ProcessingOrdersFragment processingOrdersFragment;
+    private FinishedOrdersFragment finishedOrdersFragment;
+
     public UserOrderPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -18,10 +21,20 @@ public class UserOrderPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
-            return new ProcessingOrdersFragment();
+            processingOrdersFragment = new ProcessingOrdersFragment();
+            return processingOrdersFragment;
         } else {
-            return new FinishedOrdersFragment();
+            finishedOrdersFragment = new FinishedOrdersFragment();
+            return finishedOrdersFragment;
         }
+    }
+
+    public ProcessingOrdersFragment getProcessingOrdersFragment() {
+        return processingOrdersFragment;
+    }
+
+    public FinishedOrdersFragment getFinishedOrdersFragment() {
+        return finishedOrdersFragment;
     }
 
     @Override
