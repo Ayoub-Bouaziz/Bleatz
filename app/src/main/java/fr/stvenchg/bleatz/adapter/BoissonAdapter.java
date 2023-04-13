@@ -1,5 +1,6 @@
 package fr.stvenchg.bleatz.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -31,10 +32,13 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
     private int idBurger ;
     private static Context context;
 
-    public BoissonAdapter(List<BoissonResponse.Boisson> boissons,int idBurger, Context context) {
+    private Activity activity;
+
+    public BoissonAdapter(List<BoissonResponse.Boisson> boissons,int idBurger, Context context, Activity activity) {
         this.context = context;
         this.boissons = boissons;
-        this.idBurger = idBurger ;
+        this.idBurger = idBurger;
+        this.activity = activity;
     }
 
 
@@ -112,7 +116,8 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
                 if (response.isSuccessful()) {
                     AddToCartResponse addToCartResponse = response.body();
 
-                    Toast.makeText(context, "Menu ajouté a votre Panier ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Menu ajouté au panier.", Toast.LENGTH_SHORT).show();
+                    activity.finish();
                 }
             }
 

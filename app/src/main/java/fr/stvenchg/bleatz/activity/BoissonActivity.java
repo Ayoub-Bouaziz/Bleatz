@@ -50,7 +50,7 @@ public class BoissonActivity extends AppCompatActivity {
         boissonResponse = new BoissonResponse();
         boissons = new ArrayList<>();
 
-        adapter = new BoissonAdapter(boissons,idBurger, this);
+        adapter = new BoissonAdapter(boissons, idBurger, this, this);
 
         fetchBoissons();
         recyclerView.setAdapter(adapter);

@@ -1,42 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.CartActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <!-- En-tête -->
-    <TextView
-        android:id="@+id/txt_header"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mon panier"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="16dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!-- Liste des articles du panier -->
-    <ListView
-        android:id="@+id/list_articles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_header"
-        android:divider="@null"
-        android:dividerHeight="0dp"/>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/grey_50"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Total -->
-    <TextView
-        android:id="@+id/txt_total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total : "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="end"
-        android:padding="16dp"
-        android:layout_below="@id/list_articles"/>
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Panier"
+                android:textColor="@color/grey_600"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- Liste des articles du panier -->
+        <ListView
+            android:id="@+id/list_articles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:scrollbars="none" />
+
+        <!-- Total -->
+        <TextView
+            android:id="@+id/txt_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total : "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="end"
+            android:padding="16dp"
+            android:layout_below="@id/list_articles"/>
+    </LinearLayout>
 
     <!-- Bouton de commande -->
     <Button
@@ -47,7 +62,5 @@
         android:background="@color/orange_300"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"/>
-
-
 
 </RelativeLayout>

@@ -15,8 +15,7 @@
         <ImageView
             android:id="@+id/burger_image"
             android:layout_width="80dp"
-            android:layout_height="80dp"
-            />
+            android:layout_height="80dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

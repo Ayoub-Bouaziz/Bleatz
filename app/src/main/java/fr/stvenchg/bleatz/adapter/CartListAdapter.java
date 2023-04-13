@@ -99,10 +99,10 @@ public class CartListAdapter extends BaseAdapter {
                         @Override
                         public void onResponse(Call<DeleteFromCartResponse> call, Response<DeleteFromCartResponse> response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(context, "Le menu" + menuItem.getBurger().getNom() + " a été supprimé de votre panier ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Menu " + menuItem.getBurger().getNom() + " retiré du panier.", Toast.LENGTH_SHORT).show();
                             //  refreshView(position);
                             } else {
-                                Toast.makeText(context, "Le menu" + menuItem.getBurger().getNom() + " n'a été trouvé dans votre panier ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Menu " + menuItem.getBurger().getNom() + " inexistant.", Toast.LENGTH_SHORT).show();
                             }
                         }
 

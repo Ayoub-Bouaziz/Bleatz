@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -37,15 +39,23 @@ public class CartActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private Runnable runnable;
 
+    private TextView toolbarTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         // Initialisation de la liste de menus dans le panier
         listViewCart = findViewById(R.id.list_articles);
         btnCommander = findViewById(R.id.btn_commander);
         totalPrice = findViewById(R.id.txt_total);
+        toolbarTitle = findViewById(R.id.toolbar_title);
         fetchCart();
 
         // Répétition de l'appel à fetchCart toutes les secondes
@@ -147,6 +157,17 @@ public class CartActivity extends AppCompatActivity {
                 System.out.println("----------------erreur2-------------------------------------");
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 
