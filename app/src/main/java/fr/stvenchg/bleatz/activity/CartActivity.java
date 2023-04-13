@@ -24,6 +24,7 @@ import fr.stvenchg.bleatz.api.ApiInterface;
 
 import fr.stvenchg.bleatz.api.AuthenticationManager;
 import fr.stvenchg.bleatz.api.CartResponseWrapper;
+import fr.stvenchg.bleatz.api.complete.CompleteResponse;
 import fr.stvenchg.bleatz.api.panier.CartResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,34 +72,38 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void envoiCommande(){
-/*
+
         // Récupération du token d'authentification depuis les préférences partagées
         AuthenticationManager authenticationManager = new AuthenticationManager(this);
         String accessToken = authenticationManager.getAccessToken();
 
         // Récupération du panier depuis l'API
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<CommandeResponse> callCart = apiInterface.getCart("Bearer " + accessToken);
-        callCart.enqueue(new Callback<CommandeResponse>() {
+        Call<CompleteResponse> callCart = apiInterface.getComplete("Bearer " + accessToken);
+        callCart.enqueue(new Callback<CompleteResponse>() {
             @Override
-            public void onResponse(Call<CommandeResponse> call, Response<CommandeResponse> response) {
+            public void onResponse(Call<CompleteResponse> call, Response<CompleteResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(CartActivity.this, "Votre commande est envoyé à la cuisine ", Toast.LENGTH_SHORT).show();
-
+                    CompleteResponse complete = response.body();
+                    if (complete.isSuccess()) {
+                        Toast.makeText(CartActivity.this, "Votre commande a été  envoyé à la cuisine ", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(CartActivity.this, "Votre panier est vide ", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CartActivity.this, "Votre commande n'a pas aboutie ", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(Call<CommandeResponse> call, Throwable t) {
+            public void onFailure(Call<CompleteResponse> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
                 System.out.println("----------------erreur2-------------------------------------");
             }
         });
         }
-*/
-    }
+
+
 
     private void fetchCart(){
         // Récupération du token d'authentification depuis les préférences partagées

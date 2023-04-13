@@ -7,6 +7,7 @@ import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
 import fr.stvenchg.bleatz.api.burger.BurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 
+import fr.stvenchg.bleatz.api.complete.CompleteResponse;
 import fr.stvenchg.bleatz.api.kitchen.KitchenResponse;
 import fr.stvenchg.bleatz.api.kitchen.OrderContentResponse;
 import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
@@ -77,7 +78,8 @@ public interface ApiInterface {
     Call<DeleteFromCartResponse> deleteFromCart(@Header("Authorization") String accessToken, @Query("idMenu") int menuId);
     @POST("set")
     Call<SetResponse> setAddress(@Header("Authorization") String accessToken, @Body SetRequest setRequest);
-
+    @GET("complete")
+    Call<CompleteResponse> getComplete(@Header("Authorization") String token);
     @GET("kitchen/validate-order")
     Call<ValidateOrderResponse> validateOrder(@Header("Authorization") String accessToken, @Query("id") int idOrder);
 }
