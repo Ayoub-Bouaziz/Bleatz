@@ -3,10 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fhome_textview_bonjour"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Nos burgers"
+            android:textSize="24dp"
+            android:textColor="@color/grey_80"
+            android:textStyle="bold"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="5dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
 
 </RelativeLayout>

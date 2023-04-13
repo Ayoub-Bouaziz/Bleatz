@@ -1,12 +1,14 @@
 package fr.stvenchg.bleatz.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,6 +44,8 @@ public class BurgerActivity extends AppCompatActivity {
     private ImageView burgerImageView;
     private Button ajouterAuPanier;
 
+    private TextView toolbarTitle;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,11 @@ public class BurgerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         idBurger = intent.getIntExtra("burger_id", 0);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         recyclerView = findViewById(R.id.content_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -79,9 +88,17 @@ public class BurgerActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void fetchContent() {
@@ -109,6 +126,9 @@ public class BurgerActivity extends AppCompatActivity {
                         burgerDescriptionView.setText(burger.getDescription());
 
                         burgerImageView = findViewById(R.id.burger_image_view);
+
+                        toolbarTitle = findViewById(R.id.toolbar_title);
+                        toolbarTitle.setText(burger.getNom());
 
 
                         Glide.with(BurgerActivity.this)
