@@ -38,7 +38,7 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.Orde
             public void onClick(View v) {
                 int position = recyclerView.getChildLayoutPosition(v);
                 if (onOrderClickListener != null && position != RecyclerView.NO_POSITION) {
-                    onOrderClickListener.onOrderClick(orders.get(position).idCommande);
+                    onOrderClickListener.onOrderClick(orders.get(position));
                 }
             }
         });
@@ -82,6 +82,6 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.Orde
     }
 
     public interface OnOrderClickListener {
-        void onOrderClick(int orderId);
+        void onOrderClick(Order order);
     }
 }

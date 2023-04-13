@@ -51,7 +51,11 @@ public class ProcessingOrdersFragment extends Fragment implements UserOrderAdapt
     }
 
     @Override
-    public void onOrderClick(int orderId) {
-        Toast.makeText(getContext(), "Commande n°" + orderId, Toast.LENGTH_SHORT).show();
+    public void onOrderClick(Order order) {
+        if (order.statut.equals("processing")) {
+            Toast.makeText(getContext(), "Commande n°" + order.idCommande, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "blabla" + order.idCommande, Toast.LENGTH_SHORT).show();
+        }
     }
 }
