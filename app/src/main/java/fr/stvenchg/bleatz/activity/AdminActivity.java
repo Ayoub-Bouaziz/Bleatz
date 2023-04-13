@@ -101,7 +101,7 @@ public class AdminActivity extends AppCompatActivity {
                    ajouterComposer(idBurger);
 
 
-                    Toast.makeText(AdminActivity.this, "Votre burger a été ajouter ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminActivity.this, "Votre burger a été ajouté ", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(AdminActivity.this, "Impossible d'ajouter le burger", Toast.LENGTH_SHORT).show();
@@ -133,7 +133,7 @@ public class AdminActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
 
                     } else {
-                        Toast.makeText(AdminActivity.this, "Impossible d'ajouter l'ingredient", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminActivity.this, "Impossible d'ajouter l'ingrédient", Toast.LENGTH_SHORT).show();
                     }
                 }
 

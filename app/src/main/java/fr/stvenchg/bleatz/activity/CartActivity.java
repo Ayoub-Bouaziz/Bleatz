@@ -114,7 +114,6 @@ public class CartActivity extends AppCompatActivity {
             public void onFailure(Call<CompleteResponse> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
-                System.out.println("----------------erreur2-------------------------------------");
             }
         });
         }
@@ -160,7 +159,7 @@ public class CartActivity extends AppCompatActivity {
             public void onFailure(Call<CartResponse> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
-                System.out.println("----------------erreur2-------------------------------------");
+
             }
         });
     }
