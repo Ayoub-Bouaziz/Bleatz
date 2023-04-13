@@ -34,7 +34,7 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
     public BoissonAdapter(List<BoissonResponse.Boisson> boissons,int idBurger, Context context) {
         this.context = context;
         this.boissons = boissons;
-        this.idBurger =idBurger ;
+        this.idBurger = idBurger ;
     }
 
 
@@ -113,9 +113,6 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
                     AddToCartResponse addToCartResponse = response.body();
 
                     Toast.makeText(context, "Menu ajouté a votre Panier ", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(context, CartActivity.class);
-                    context.startActivity(intent);
                 }
             }
 
