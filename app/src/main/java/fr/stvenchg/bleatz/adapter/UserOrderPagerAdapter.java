@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz;
+package fr.stvenchg.bleatz.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

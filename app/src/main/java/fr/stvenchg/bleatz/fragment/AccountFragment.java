@@ -20,14 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.stvenchg.bleatz.R;
-import fr.stvenchg.bleatz.SettingsAdapter;
+import fr.stvenchg.bleatz.adapter.SettingsAdapter;
 import fr.stvenchg.bleatz.SettingsItem;
 import fr.stvenchg.bleatz.activity.AccountInfosActivity;
 import fr.stvenchg.bleatz.activity.AuthActivity;
-import fr.stvenchg.bleatz.activity.RegisterActivity;
 import fr.stvenchg.bleatz.activity.UserOrderActivity;
-import fr.stvenchg.bleatz.api.ApiClient;
-import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.activity.KitchenActivity;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
 
