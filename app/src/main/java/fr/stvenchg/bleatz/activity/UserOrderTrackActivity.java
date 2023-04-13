@@ -3,13 +3,18 @@ package fr.stvenchg.bleatz.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import fr.stvenchg.bleatz.R;
@@ -32,6 +37,13 @@ public class UserOrderTrackActivity extends AppCompatActivity {
     private Handler handler;
 
     private Runnable fetchOneOrderDetailsRunnable;
+
+    private TextView orderStatus;
+
+    private ProgressBar progress1;
+    private LinearLayout progress2;
+
+    private LottieAnimationView animationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,11 @@ public class UserOrderTrackActivity extends AppCompatActivity {
 
         orderDate = findViewById(R.id.ordertrack_date);
         orderDate.setText("Commande passée : " + dateCommande);
+
+        orderStatus = findViewById(R.id.order_status);
+        progress1 = findViewById(R.id.order_progress_one);
+        progress2 = findViewById(R.id.order_progress_two);
+        animationView = findViewById(R.id.animationView);
 
         handler = new Handler();
         startRepeatingFetchOneOrderDetails();
@@ -110,7 +127,14 @@ public class UserOrderTrackActivity extends AppCompatActivity {
                         OneOrderDetailsResponse oneOrderDetailsResponse = response.body();
                         if (oneOrderDetailsResponse.isSuccess()) {
                             if (oneOrderDetailsResponse.getStatut().equals("finished")) {
-                                Toast.makeText(UserOrderTrackActivity.this, "Commande prête", Toast.LENGTH_SHORT).show();
+                                orderStatus.setText("Commande prête, bon appétit !");
+                                progress1.setVisibility(View.INVISIBLE);
+                                progress2.setVisibility(View.INVISIBLE);
+                                animationView.setAnimation(R.raw.success);
+                                animationView.playAnimation();
+                                animationView.loop(false);
+
+                                stopRepeatingFetchOneOrderDetails();
                             }
                         } else {
                             // Gérez l'échec ici
