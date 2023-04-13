@@ -32,13 +32,6 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/burger_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description du burger"
-                android:textSize="14sp"/>
-
-            <TextView
                 android:id="@+id/burger_prix"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

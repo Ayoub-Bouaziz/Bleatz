@@ -80,14 +80,14 @@ public class BurgerAdapter extends RecyclerView.Adapter<BurgerAdapter.BurgerView
             super(itemView);
             image = itemView.findViewById(R.id.burger_image);
             nom = itemView.findViewById(R.id.burger_nom);
-            description = itemView.findViewById(R.id.burger_description);
+            // description = itemView.findViewById(R.id.burger_description);
             prix = itemView.findViewById(R.id.burger_prix);
         }
 
         public void bind(BurgerResponse.Burger burger) {
 
             nom.setText(burger.getNom());
-            description.setText(burger.getDescription());
+            // description.setText(burger.getDescription());
             prix.setText(String.valueOf(burger.getPrix()) + "0 €");
 
             Glide.with(context)
