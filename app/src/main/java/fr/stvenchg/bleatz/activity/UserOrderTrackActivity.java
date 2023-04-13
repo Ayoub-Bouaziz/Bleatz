@@ -1,9 +1,11 @@
 package fr.stvenchg.bleatz.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,11 +22,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class UserOrderTrackActivity extends AppCompatActivity {
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView toolbarTitle;
 
     private TextView orderDate;
+
+    private Handler handler;
+
+    private Runnable fetchOneOrderDetailsRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,31 @@ public class UserOrderTrackActivity extends AppCompatActivity {
 
         orderDate = findViewById(R.id.ordertrack_date);
         orderDate.setText("Commande passée : " + dateCommande);
+
+        handler = new Handler();
+        startRepeatingFetchOneOrderDetails();
+    }
+
+    private void startRepeatingFetchOneOrderDetails() {
+        fetchOneOrderDetailsRunnable = new Runnable() {
+            @Override
+            public void run() {
+                int orderId = getIntent().getIntExtra("order_id", 0);
+                fetchOneOrderDetails(orderId);
+                handler.postDelayed(fetchOneOrderDetailsRunnable, 1000); // Exécuter toutes les 1 secondes (1000 millisecondes)
+            }
+        };
+        handler.post(fetchOneOrderDetailsRunnable);
+    }
+
+    private void stopRepeatingFetchOneOrderDetails() {
+        handler.removeCallbacks(fetchOneOrderDetailsRunnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopRepeatingFetchOneOrderDetails();
     }
 
     @Override
@@ -77,12 +109,14 @@ public class UserOrderTrackActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         OneOrderDetailsResponse oneOrderDetailsResponse = response.body();
                         if (oneOrderDetailsResponse.isSuccess()) {
-                            // Utilisez les données de la réponse ici
+                            if (oneOrderDetailsResponse.getStatut().equals("finished")) {
+                                Toast.makeText(UserOrderTrackActivity.this, "Commande prête", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             // Gérez l'échec ici
                         }
                     } else {
-                        // Gérez l'échec de la requête ici
+                        // Gérez l'échec de la requête
                     }
                 }
                 @Override
