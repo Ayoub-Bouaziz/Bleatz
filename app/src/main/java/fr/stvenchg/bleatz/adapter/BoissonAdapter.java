@@ -115,7 +115,6 @@ public class BoissonAdapter extends RecyclerView.Adapter<BoissonAdapter.BoissonV
             public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
                 if (response.isSuccessful()) {
                     AddToCartResponse addToCartResponse = response.body();
-
                     Toast.makeText(context, "Menu ajouté au panier.", Toast.LENGTH_SHORT).show();
                     activity.finish();
                 }

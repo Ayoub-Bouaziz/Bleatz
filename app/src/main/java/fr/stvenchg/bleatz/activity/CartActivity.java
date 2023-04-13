@@ -96,12 +96,12 @@ public class CartActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     CompleteResponse complete = response.body();
                     if (complete.isSuccess()) {
-                        Toast.makeText(CartActivity.this, "Votre commande a été  envoyé à la cuisine ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CartActivity.this, "Commande passée, merci !", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(CartActivity.this, "Votre panier est vide ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CartActivity.this, "Votre panier est vide.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(CartActivity.this, "Votre commande n'a pas aboutie ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CartActivity.this, "Une erreur est survenue lors du passage de la commande.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -147,7 +147,7 @@ public class CartActivity extends AppCompatActivity {
                     totalPrice.setText("Total : " + formattedPrice + " €");
 
                 } else {
-                    Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CartActivity.this, "Erreur lors de la récupération du panier.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
