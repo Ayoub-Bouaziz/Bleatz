@@ -96,7 +96,6 @@ public interface ApiInterface {
     Call<CreateBurgerResponse> createBurger(@Header("Authorization") String accessToken, @Query("nom") String nom, @Query("prix") double prix, @Query("description") String description);
     @GET("order-details")
     Call<OneOrderDetailsResponse> getOneOrderDetails(@Header("Authorization") String accessToken, @Query("id") int id);
-    Call<CreateBurgerResponse> createBurger(@Header("Authorization") String accessToken, @Query("nom") String nom, @Query("prix") double prix, @Query("description") String description );
 
     @GET("admin/ingredients/add-composer")
     Call<AddComposerResponse> addComposer(@Header("Authorization") String accessToken, @Query("idBurger") int idBurger, @Query("idIngredient") int idIngredient );
