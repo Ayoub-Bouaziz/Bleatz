@@ -14,6 +14,8 @@ import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 
+import fr.stvenchg.bleatz.api.orders.OrdersResponse;
+import fr.stvenchg.bleatz.api.panier.AddToCartRequest;
 import fr.stvenchg.bleatz.api.panier.AddToCartResponse;
 import fr.stvenchg.bleatz.api.panier.CartResponse;
 import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
@@ -82,4 +84,6 @@ public interface ApiInterface {
     Call<CompleteResponse> getComplete(@Header("Authorization") String token);
     @GET("kitchen/validate-order")
     Call<ValidateOrderResponse> validateOrder(@Header("Authorization") String accessToken, @Query("id") int idOrder);
+    @GET("orders")
+    Call<OrdersResponse> getOrders(@Header("Authorization") String accessToken);
 }

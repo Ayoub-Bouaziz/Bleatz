@@ -5,6 +5,10 @@
     android:padding="16dp"
     tools:context=".activity.UserOrderActivity">
 
-    <!-- Ajoutez votre contenu pour les commandes en cours ici -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
 </FrameLayout>

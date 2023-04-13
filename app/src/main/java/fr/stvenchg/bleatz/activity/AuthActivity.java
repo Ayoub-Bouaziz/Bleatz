@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
-import fr.stvenchg.bleatz.activity.tasks.RefreshTokenTask;
+import fr.stvenchg.bleatz.tasks.RefreshTokenTask;
 
 public class AuthActivity extends AppCompatActivity {
 

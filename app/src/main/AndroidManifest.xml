@@ -78,6 +78,14 @@
         <activity
             android:name=".activity.CartActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".activity.UserOrderDetailsActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.UserOrderTrackActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

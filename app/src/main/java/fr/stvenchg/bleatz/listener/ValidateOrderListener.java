@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz;
+package fr.stvenchg.bleatz.listener;
 
 import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 

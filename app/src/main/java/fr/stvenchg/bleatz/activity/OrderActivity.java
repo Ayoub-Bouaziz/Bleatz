@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.stvenchg.bleatz.R;
-import fr.stvenchg.bleatz.ValidateOrderListener;
+import fr.stvenchg.bleatz.listener.ValidateOrderListener;
 import fr.stvenchg.bleatz.adapter.ContentAdapter;
-import fr.stvenchg.bleatz.adapter.OrderAdapter;
 import fr.stvenchg.bleatz.api.ApiClient;
 import fr.stvenchg.bleatz.api.ApiInterface;
 import fr.stvenchg.bleatz.api.AuthenticationManager;
-import fr.stvenchg.bleatz.api.kitchen.KitchenResponse;
 import fr.stvenchg.bleatz.api.kitchen.OrderContentResponse;
 import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 import retrofit2.Call;

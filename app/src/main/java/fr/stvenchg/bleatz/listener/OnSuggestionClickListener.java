@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz;
+package fr.stvenchg.bleatz.listener;
 
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 

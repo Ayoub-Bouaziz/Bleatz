@@ -1,4 +1,4 @@
-package fr.stvenchg.bleatz.activity.tasks;
+package fr.stvenchg.bleatz.tasks;
 
 import android.content.Intent;
 import android.os.AsyncTask;
