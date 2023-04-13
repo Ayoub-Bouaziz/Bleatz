@@ -17,6 +17,7 @@ import fr.stvenchg.bleatz.api.kitchen.ValidateOrderResponse;
 import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 
+import fr.stvenchg.bleatz.api.order.OneOrderDetailsResponse;
 import fr.stvenchg.bleatz.api.orders.OrdersResponse;
 import fr.stvenchg.bleatz.api.panier.AddToCartResponse;
 import fr.stvenchg.bleatz.api.panier.CartResponse;
@@ -92,6 +93,9 @@ public interface ApiInterface {
     @GET("admin/ingredients/list")
     Call<IngredientResponse> getIngredients(@Header("Authorization") String accessToken);
     @GET("admin/create-burger")
+    Call<CreateBurgerResponse> createBurger(@Header("Authorization") String accessToken, @Query("nom") String nom, @Query("prix") double prix, @Query("description") String description);
+    @GET("order-details")
+    Call<OneOrderDetailsResponse> getOneOrderDetails(@Header("Authorization") String accessToken, @Query("id") int id);
     Call<CreateBurgerResponse> createBurger(@Header("Authorization") String accessToken, @Query("nom") String nom, @Query("prix") double prix, @Query("description") String description );
 
     @GET("admin/ingredients/add-composer")

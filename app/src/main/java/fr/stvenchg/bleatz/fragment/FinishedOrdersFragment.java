@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,10 @@ import fr.stvenchg.bleatz.Order;
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.adapter.OrderAdapter;
 import fr.stvenchg.bleatz.adapter.UserOrderAdapter;
+import fr.stvenchg.bleatz.activity.AuthActivity;
+import fr.stvenchg.bleatz.activity.LoginActivity;
+import fr.stvenchg.bleatz.activity.UserOrderDetailsActivity;
+import fr.stvenchg.bleatz.activity.UserOrderTrackActivity;
 
 public class FinishedOrdersFragment extends Fragment implements UserOrderAdapter.OnOrderClickListener {
 
@@ -53,10 +58,10 @@ public class FinishedOrdersFragment extends Fragment implements UserOrderAdapter
 
     @Override
     public void onOrderClick(Order order) {
-        if (order.statut.equals("processing")) {
-            Toast.makeText(getContext(), "Commande n°" + order.idCommande, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), "blabla" + order.idCommande, Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(getActivity(), UserOrderDetailsActivity.class);
+        startActivity(intent);
+        intent.putExtra("order_id", order.idCommande);
+        intent.putExtra("order_date", order.dateCommande);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

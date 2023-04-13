@@ -18,6 +18,9 @@ import fr.stvenchg.bleatz.Order;
 import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.adapter.OrderAdapter;
 import fr.stvenchg.bleatz.adapter.UserOrderAdapter;
+import android.content.Intent;
+import fr.stvenchg.bleatz.activity.UserOrderDetailsActivity;
+import fr.stvenchg.bleatz.activity.UserOrderTrackActivity;
 
 public class ProcessingOrdersFragment extends Fragment implements UserOrderAdapter.OnOrderClickListener {
 
@@ -52,10 +55,11 @@ public class ProcessingOrdersFragment extends Fragment implements UserOrderAdapt
 
     @Override
     public void onOrderClick(Order order) {
-        if (order.statut.equals("processing")) {
-            Toast.makeText(getContext(), "Commande n°" + order.idCommande, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), "blabla" + order.idCommande, Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(getActivity(), UserOrderTrackActivity.class);
+        intent.putExtra("order_id", order.idCommande);
+        intent.putExtra("order_date", order.dateCommande);
+
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

@@ -255,4 +255,12 @@
         <item name="android:textCursorDrawable">@drawable/cursor_color</item>
     </style>
 
+    <style name="progressBarStyle" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateDrawable">@drawable/orange_progress_bar</item>
+    </style>
+
+    <style name="progressBarGrey" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateDrawable">@drawable/grey_progress_bar</item>
+    </style>
+
 </resources>

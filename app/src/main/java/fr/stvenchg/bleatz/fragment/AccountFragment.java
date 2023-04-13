@@ -147,7 +147,7 @@ public class AccountFragment extends Fragment {
 
 
         Button cuisineButton = view.findViewById(R.id.faccount_button_cuisine);
-        if (role.equals("cuisine")|| role.equals("admin")) {
+        if (role.equals("cuisine") || role.equals("admin")) {
             cuisineButton.setVisibility(View.VISIBLE);
             cuisineButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -167,6 +167,7 @@ public class AccountFragment extends Fragment {
 
         if (role.equals("admin")) {
             cuisineButton.setVisibility(View.VISIBLE);
+            btn_admin.setVisibility(View.VISIBLE);
         btn_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +177,7 @@ public class AccountFragment extends Fragment {
             }
         });
         } else {
-            cuisineButton.setVisibility(View.GONE);
+            btn_admin.setVisibility(View.GONE);
         }
 
 
