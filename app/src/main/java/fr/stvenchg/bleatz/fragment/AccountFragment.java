@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.stvenchg.bleatz.R;
+import fr.stvenchg.bleatz.activity.AdminActivity;
 import fr.stvenchg.bleatz.adapter.SettingsAdapter;
 import fr.stvenchg.bleatz.SettingsItem;
 import fr.stvenchg.bleatz.activity.AccountInfosActivity;
@@ -37,6 +38,7 @@ public class AccountFragment extends Fragment {
 
     private AuthenticationManager authenticationManager;
     private TextView bonjourTextView;
+
 
     private String firstname;
     private String role;
@@ -83,7 +85,10 @@ public class AccountFragment extends Fragment {
         bonjourTextView = view.findViewById(R.id.faccount_textview_nom);
         bonjourTextView.setText(firstname + " " + lastname);
 
+
         Button logoutButton = view.findViewById(R.id.faccount_button_logout);
+
+
 
         RecyclerView settingsRecyclerView = view.findViewById(R.id.faccount_recyclerview_settings);
         List<SettingsItem> settingsItems = new ArrayList<>();
@@ -142,10 +147,8 @@ public class AccountFragment extends Fragment {
 
 
         Button cuisineButton = view.findViewById(R.id.faccount_button_cuisine);
-        if (role.equals("cuisine")) {
+        if (role.equals("cuisine")|| role.equals("admin")) {
             cuisineButton.setVisibility(View.VISIBLE);
-
-
             cuisineButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -160,6 +163,21 @@ public class AccountFragment extends Fragment {
         }
 
 
+        Button btn_admin = view.findViewById(R.id.faccount_button_admin);
+
+        if (role.equals("admin")) {
+            cuisineButton.setVisibility(View.VISIBLE);
+        btn_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Créer un Intent pour naviguer vers Admin
+                Intent intent = new Intent(getActivity(), AdminActivity.class);
+                startActivity(intent);
+            }
+        });
+        } else {
+            cuisineButton.setVisibility(View.GONE);
+        }
 
 
 
