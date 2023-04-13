@@ -15,7 +15,6 @@ import fr.stvenchg.bleatz.api.login.LoginRequest;
 import fr.stvenchg.bleatz.api.login.LoginResponse;
 
 import fr.stvenchg.bleatz.api.orders.OrdersResponse;
-import fr.stvenchg.bleatz.api.panier.AddToCartRequest;
 import fr.stvenchg.bleatz.api.panier.AddToCartResponse;
 import fr.stvenchg.bleatz.api.panier.CartResponse;
 import fr.stvenchg.bleatz.api.panier.CreateMenuResponse;
