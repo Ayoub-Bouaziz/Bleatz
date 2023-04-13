@@ -20,16 +20,29 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.Orde
     private List<Order> orders;
     private Context context;
 
-    public UserOrderAdapter(List<Order> orders, Context context) {
+    private OnOrderClickListener onOrderClickListener;
+
+    public UserOrderAdapter(List<Order> orders, Context context, OnOrderClickListener onOrderClickListener) {
         this.orders = orders;
         this.context = context;
+        this.onOrderClickListener = onOrderClickListener;
     }
 
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.order_item, parent, false);
-        return new OrderViewHolder(view);
+        RecyclerView recyclerView = (RecyclerView) parent;
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = recyclerView.getChildLayoutPosition(v);
+                if (onOrderClickListener != null && position != RecyclerView.NO_POSITION) {
+                    onOrderClickListener.onOrderClick(orders.get(position).idCommande);
+                }
+            }
+        });
+        return new OrderViewHolder(view, recyclerView);
     }
 
     @Override
@@ -57,12 +70,18 @@ public class UserOrderAdapter extends RecyclerView.Adapter<UserOrderAdapter.Orde
         TextView orderId;
         TextView orderDate;
         TextView orderStatut;
+        RecyclerView recyclerView;
 
-        public OrderViewHolder(@NonNull View itemView) {
+        public OrderViewHolder(@NonNull View itemView, RecyclerView recyclerView) {
             super(itemView);
+            this.recyclerView = recyclerView;
             orderId = itemView.findViewById(R.id.order_id);
             orderDate = itemView.findViewById(R.id.order_date);
             orderStatut = itemView.findViewById(R.id.order_status);
         }
+    }
+
+    public interface OnOrderClickListener {
+        void onOrderClick(int orderId);
     }
 }

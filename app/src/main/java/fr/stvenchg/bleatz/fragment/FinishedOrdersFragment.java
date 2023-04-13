@@ -3,6 +3,7 @@ package fr.stvenchg.bleatz.fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +19,7 @@ import fr.stvenchg.bleatz.R;
 import fr.stvenchg.bleatz.adapter.OrderAdapter;
 import fr.stvenchg.bleatz.adapter.UserOrderAdapter;
 
-public class FinishedOrdersFragment extends Fragment {
+public class FinishedOrdersFragment extends Fragment implements UserOrderAdapter.OnOrderClickListener {
 
     private RecyclerView recyclerView;
     private UserOrderAdapter userOrderAdapter;
@@ -32,7 +33,7 @@ public class FinishedOrdersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
-        userOrderAdapter = new UserOrderAdapter(orders, getContext());
+        userOrderAdapter = new UserOrderAdapter(orders, getContext(), this);
         recyclerView.setAdapter(userOrderAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -48,5 +49,10 @@ public class FinishedOrdersFragment extends Fragment {
     public void updateOrders(List<Order> orders) {
         Log.d("FinishedOrdersFragment", "Updating orders: " + orders.size());
         setOrders(orders);
+    }
+
+    @Override
+    public void onOrderClick(int orderId) {
+        Toast.makeText(getContext(), "Commande n°" + orderId, Toast.LENGTH_SHORT).show();
     }
 }
