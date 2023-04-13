@@ -1,6 +1,7 @@
 package fr.stvenchg.bleatz.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;

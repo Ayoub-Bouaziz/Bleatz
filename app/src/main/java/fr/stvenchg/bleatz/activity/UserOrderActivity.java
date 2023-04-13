@@ -1,8 +1,11 @@
 package fr.stvenchg.bleatz.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -38,6 +41,14 @@ public class UserOrderActivity extends AppCompatActivity implements UserOrdersLi
     private List<Order> processingOrders = new ArrayList<>();
     private List<Order> finishedOrders = new ArrayList<>();
 
+    private TextView noOrdersText;
+
+    private Handler handler = new Handler();
+
+    private boolean isFetchingOrders = false;
+
+    private static final long FETCH_ORDERS_DELAY = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +61,14 @@ public class UserOrderActivity extends AppCompatActivity implements UserOrdersLi
 
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
+        noOrdersText = findViewById(R.id.noOrdersTextView);
+        noOrdersText.setVisibility(View.GONE);
 
         authenticationManager = new AuthenticationManager(this);
 
         setupViewPager();
         fetchOrders();
+        updateOrders();
     }
 
     @Override
@@ -63,6 +77,12 @@ public class UserOrderActivity extends AppCompatActivity implements UserOrdersLi
         this.processingOrders.addAll(processingOrders);
         this.finishedOrders.clear();
         this.finishedOrders.addAll(finishedOrders);
+
+        if (processingOrders.isEmpty() && finishedOrders.isEmpty()) {
+            noOrdersText.setVisibility(View.VISIBLE);
+        } else {
+            noOrdersText.setVisibility(View.GONE);
+        }
 
         // Mettre à jour les fragments avec les nouvelles commandes
         UserOrderPagerAdapter userOrderPagerAdapter = (UserOrderPagerAdapter) viewPager.getAdapter();
@@ -73,6 +93,7 @@ public class UserOrderActivity extends AppCompatActivity implements UserOrdersLi
             if (processingOrdersFragment != null) {
                 processingOrdersFragment.updateOrders(processingOrders);
             }
+
             if (finishedOrdersFragment != null) {
                 finishedOrdersFragment.updateOrders(finishedOrders);
             }
@@ -124,6 +145,7 @@ public class UserOrderActivity extends AppCompatActivity implements UserOrdersLi
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void fetchOrders() {
         String accessToken = authenticationManager.getAccessToken();
         if (accessToken != null) {
@@ -153,5 +175,44 @@ public class UserOrderActivity extends AppCompatActivity implements UserOrdersLi
                 }
             });
         }
+    }
+
+    private void updateOrders() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fetchOrders();
+                updateOrders();
+            }
+        }, FETCH_ORDERS_DELAY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchOrdersPeriodically();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+        isFetchingOrders = false;
+    }
+
+    private void fetchOrdersPeriodically() {
+        if (isFetchingOrders) {
+            // Une requête est déjà en cours
+            return;
+        }
+        isFetchingOrders = true;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fetchOrders();
+                isFetchingOrders = false;
+                handler.postDelayed(this, FETCH_ORDERS_DELAY);
+            }
+        }, FETCH_ORDERS_DELAY);
     }
 }
