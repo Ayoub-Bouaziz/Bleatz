@@ -5,6 +5,7 @@ import java.util.List;
 import fr.stvenchg.bleatz.api.account.AccountResponse;
 import fr.stvenchg.bleatz.api.boisson.BoissonResponse;
 import fr.stvenchg.bleatz.api.burger.BurgerResponse;
+import fr.stvenchg.bleatz.api.burger.CreateBurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 
 import fr.stvenchg.bleatz.api.complete.CompleteResponse;
@@ -85,4 +86,7 @@ public interface ApiInterface {
     Call<ValidateOrderResponse> validateOrder(@Header("Authorization") String accessToken, @Query("id") int idOrder);
     @GET("orders")
     Call<OrdersResponse> getOrders(@Header("Authorization") String accessToken);
+    @GET("admin/create-burger")
+    Call<CreateBurgerResponse> createBurger(@Header("Authorization") String accessToken, @Query("nom") String nom, @Query("prix") double prix, @Query("description") String description );
+
 }

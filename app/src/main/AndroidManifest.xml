@@ -23,6 +23,9 @@
             android:name=".activity.BoissonActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.AdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.BurgerActivity"
             android:exported="false" />
         <activity
