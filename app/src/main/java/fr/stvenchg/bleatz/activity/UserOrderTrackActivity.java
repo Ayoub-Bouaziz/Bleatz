@@ -130,7 +130,7 @@ public class UserOrderTrackActivity extends AppCompatActivity {
                                 orderStatus.setText("Commande prête, bon appétit !");
                                 progress1.setVisibility(View.INVISIBLE);
                                 progress2.setVisibility(View.INVISIBLE);
-                                animationView.setAnimation(R.raw.success);
+                                animationView.setAnimation(R.raw.finished);
                                 animationView.playAnimation();
                                 animationView.loop(false);
 
