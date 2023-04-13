@@ -16,9 +16,7 @@ import fr.stvenchg.bleatz.R;
 public class RestaurantLocationFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
-    // TODO: Replace these coordinates with your restaurant's coordinates
-    private static final LatLng RESTAURANT_LOCATION = new LatLng(48.8566, 2.3522);
+    private static final LatLng RESTAURANT_LOCATION = new LatLng(48.86193548352055, 2.4635977957425244);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
