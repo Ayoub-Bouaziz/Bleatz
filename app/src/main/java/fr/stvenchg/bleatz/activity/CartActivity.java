@@ -55,13 +55,49 @@ public class CartActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(runnable, 5000);
-    }
 
+        btnCommander.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                envoiCommande();
+            }
+             });
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Arrêt de la répétition de l'appel à fetchCart lorsque l'activité est détruite
         handler.removeCallbacks(runnable);
+    }
+
+    public void envoiCommande(){
+/*
+        // Récupération du token d'authentification depuis les préférences partagées
+        AuthenticationManager authenticationManager = new AuthenticationManager(this);
+        String accessToken = authenticationManager.getAccessToken();
+
+        // Récupération du panier depuis l'API
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<CommandeResponse> callCart = apiInterface.getCart("Bearer " + accessToken);
+        callCart.enqueue(new Callback<CommandeResponse>() {
+            @Override
+            public void onResponse(Call<CommandeResponse> call, Response<CommandeResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(CartActivity.this, "Votre commande est envoyé à la cuisine ", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<CommandeResponse> call, Throwable t) {
+                Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+                System.out.println("----------------erreur2-------------------------------------");
+            }
+        });
+        }
+*/
     }
 
     private void fetchCart(){
@@ -99,7 +135,6 @@ public class CartActivity extends AppCompatActivity {
                     Toast.makeText(CartActivity.this, "Impossible de récupérer le panier", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<CartResponse> call, Throwable t) {
                 Toast.makeText(CartActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
