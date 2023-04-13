@@ -6,6 +6,8 @@ public class CreateBurgerResponse {
     @SerializedName("success")
     private boolean success;
 
+    @SerializedName("idBurger")
+    private int idBurger;
     @SerializedName("message")
     private String message;
 
@@ -57,7 +59,11 @@ public class CreateBurgerResponse {
         this.description = description;
     }
 
+    public int getIdBurger() {
+        return idBurger;
+    }
 
-
-
+    public void setIdBurger(int idBurger) {
+        this.idBurger = idBurger;
+    }
 }

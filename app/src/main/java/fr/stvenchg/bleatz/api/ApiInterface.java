@@ -9,6 +9,7 @@ import fr.stvenchg.bleatz.api.burger.CreateBurgerResponse;
 import fr.stvenchg.bleatz.api.burger.DetailsBurgerResponse;
 
 import fr.stvenchg.bleatz.api.complete.CompleteResponse;
+import fr.stvenchg.bleatz.api.composer.AddComposerResponse;
 import fr.stvenchg.bleatz.api.ingredient.IngredientResponse;
 import fr.stvenchg.bleatz.api.kitchen.KitchenResponse;
 import fr.stvenchg.bleatz.api.kitchen.OrderContentResponse;
@@ -92,5 +93,8 @@ public interface ApiInterface {
     Call<IngredientResponse> getIngredients(@Header("Authorization") String accessToken);
     @GET("admin/create-burger")
     Call<CreateBurgerResponse> createBurger(@Header("Authorization") String accessToken, @Query("nom") String nom, @Query("prix") double prix, @Query("description") String description );
+
+    @GET("admin/ingredients/add-composer")
+    Call<AddComposerResponse> addComposer(@Header("Authorization") String accessToken, @Query("idBurger") int idBurger, @Query("idIngredient") int idIngredient );
 
 }
