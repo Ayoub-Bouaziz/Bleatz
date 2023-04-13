@@ -62,10 +62,10 @@ public class CartActivity extends AppCompatActivity {
         runnable = new Runnable() {
             public void run() {
                 fetchCart();
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, 1000);
             }
         };
-        handler.postDelayed(runnable, 5000);
+        handler.postDelayed(runnable, 1000);
 
         btnCommander.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +97,12 @@ public class CartActivity extends AppCompatActivity {
                     CompleteResponse complete = response.body();
                     if (complete.isSuccess()) {
                         Toast.makeText(CartActivity.this, "Commande passée, merci !", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(CartActivity.this, UserOrderTrackActivity.class);
+                        intent.putExtra("order_id", complete.getIdCommande());
+                        intent.putExtra("order_date", "À l'instant");
+                        startActivity(intent);
+                        finish();
                     }else {
                         Toast.makeText(CartActivity.this, "Votre panier est vide.", Toast.LENGTH_SHORT).show();
                     }
